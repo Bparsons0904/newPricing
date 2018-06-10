@@ -7,5 +7,16 @@
     <p class="text-center">Months 13+</p>
     <p class="text-center">${{ year2 }}</p>
   </div>
+</div>
 
+<div class="row" *ngIf="package1">
+  Hello fd
+  {{ package1.tv.base }}
+</div>
+
+<div class="row">
+  <div *ngFor="let package of directv.packages">
+    <button (click)=selectPackage(package)>{{ package[0] }}</button>
+    
+  </div>
 </div>

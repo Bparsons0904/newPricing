@@ -8,7 +8,8 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { MatTabsModule } from '@angular/material/tabs';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import { PricingService } from './services/pricing.service';
+import { TvService } from './services/tv.service';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MatTabsModule,
     BrowserAnimationsModule,
   ],
-  providers: [],
+  providers: [PricingService, TvService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
