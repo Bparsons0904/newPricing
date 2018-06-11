@@ -36,8 +36,8 @@ dtvnow: any;
     this.dtvnow = {
       name: 'DirecTV Now',
       type: 'tv',
-      maxStream: 3,
-      extraStream: 5,
+      maxTV: 3,
+      perTVCost: 5,
       packages: [['Live a Little', 35, 0], ['Just Right', 50, 0], ['Go Big', 60, 0], ['Gotta Have It', 70, 0]],
       discounts: [['Unlimited', 0, 15]],
       activeDiscounts: [],

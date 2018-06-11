@@ -6,6 +6,7 @@ import { TvService } from '../../services/tv.service';
 import { DiscountsService } from '../../services/discounts.service';
 import { InternetService } from '../../services/internet.service';
 import { Observable } from 'rxjs';
+import { element } from 'protractor';
 
 @Component({
   selector: 'app-home',
@@ -16,12 +17,12 @@ export class HomeComponent implements OnInit {
 
   currentService: object;
   activeServiceType: string;
+  activeServiceName: string;
   package1: Package;
   package2: Package;
   package3: Package;
 
-  Autopay: boolean;
-  Unlimited: boolean;
+  maxTV: number[];
 
   constructor(
     private pricingService: PricingService,
@@ -53,7 +54,7 @@ export class HomeComponent implements OnInit {
     //   year2Pricing: 0,
     // }
 
-    
+
 
     // this.directv = this.tvService.directv;
     // this.uverse = this.tvService.uverse;
@@ -64,24 +65,31 @@ export class HomeComponent implements OnInit {
     this.pricingService.castCurrentService.subscribe(currentService => {
       this.currentService = currentService;
       this.activeServiceType = currentService.type;
+      this.activeServiceName = currentService.name;
+      this.maxTV = [];
+      for (let i = 1; i <= currentService.maxTV; i++) {
+        this.maxTV.push(i);
+      }
     });
+
+    
   }
 
   update() {
 
   }
 
-  setDiscountActive(): void {
-    const array = document.querySelectorAll('.discounts');
-    for (let i = 0; i < array.length; i++) {
-      const element = array[i];
-      element.classList.remove('active')
-    }
-    this.pricingService.currentPackage.discounts.forEach(discount => {
-      const element = document.getElementById(discount);
-      element.classList.add('active');
-    });
-  }
+  // setDiscountActive(): void {
+  //   const array = document.querySelectorAll('.discounts');
+  //   for (let i = 0; i < array.length; i++) {
+  //     const element = array[i];
+  //     element.classList.remove('active')
+  //   }
+  //   this.pricingService.currentPackage.discounts.forEach(discount => {
+  //     const element = document.getElementById(discount);
+  //     element.classList.add('active');
+  //   });
+  // }
 
   selectDiscount(discount): void {
     const status = this.pricingService.setDiscountTV(discount);
@@ -101,22 +109,43 @@ export class HomeComponent implements OnInit {
     } else {
       this.pricingService.setInternetPackage(selectedPackage)
     }
-    
-    // this.tempPackage.tv = {
-    //   selected: true,
-    //   // tvType: this.tvType,
-    //   package: TVPackage[0],
-    //   base: TVPackage[1],
-    //   discount: TVPackage[2],
-    // }
-    this.update();
+    const array = document.querySelectorAll('.packages');
+    for (let i = 0; i < array.length; i++) {
+      const element = array[i];
+      element.classList.remove('active')
+    }
+    const element = document.getElementById(selectedPackage[0]);
+    element.classList.add('active')
+  }
+
+  selectNumberOfTvs(numberOfTvs): void {
+    if (this.activeServiceName == "DirecTV Now") {
+      if (numberOfTvs === 3) {
+        this.pricingService.setNumberOfTvs(2);
+      } else {
+        null
+      }
+    } else {
+      if (numberOfTvs >= 2) {
+        this.pricingService.setNumberOfTvs(numberOfTvs);
+      } else {
+        null
+      }
+    }
+    const array = document.querySelectorAll('.tvs');
+    for (let i = 0; i < array.length; i++) {
+      const element = array[i];
+      element.classList.remove('active')
+    }
+    const element = document.getElementById('tv'+ numberOfTvs);
+    element.classList.add('active')
   }
 
   testButton() {
     console.log("Test Button");
     
     // console.log(this.pricingService.currentPackage.discounts);
-    this.setDiscountActive();
+    // this.setDiscountActive();
   }
 
 }

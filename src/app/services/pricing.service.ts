@@ -23,7 +23,9 @@ export class PricingService {
   discountTV: number = 0;
   discountInternetYear1: number = 0;
   discountInternetYear2: number = 0;
+
   currentPackage: Package;
+  perTVCost: number;
 
   constructor(
     private tvService: TvService,
@@ -63,7 +65,7 @@ export class PricingService {
 
   updatePrice() {
     this.currentPackage.year1Pricing = this.currentPackage.tv.base + this.currentPackage.tv.costOfExtraTvs - this.currentPackage.tv.discount - this.currentPackage.year1Discount;
-    this.currentPackage.year2Pricing = this.currentPackage.tv.base + this.currentPackage.tv.costOfExtraTvs - this.currentPackage.year2Discount;
+    this.currentPackage.year2Pricing = this.currentPackage.tv.base + this.currentPackage.tv.costOfExtraTvs - this.currentPackage.year2Discount
   }
 
   // getCurrentService(): Observable<object> {
@@ -92,16 +94,19 @@ export class PricingService {
         this.resetTVPackage();
         this.currentService.next(this.tvService.directv);
         this.currentPackage.tv.tvType = this.tvService.directv.name;
+        this.perTVCost = this.tvService.directv.perTVCost;
         break;
       case 'uvtv-select':
         this.resetTVPackage();
         this.currentService.next(this.tvService.uverse);
         this.currentPackage.tv.tvType = this.tvService.uverse.name;
+        this.perTVCost = this.tvService.uverse.perTVCost;
         break;
       case 'now-select':
         this.resetTVPackage();
         this.currentService.next(this.tvService.dtvnow);
         this.currentPackage.tv.tvType = this.tvService.dtvnow.name;
+        this.perTVCost = this.tvService.dtvnow.perTVCost;
         break;
       default:
         this.resetTVPackage();
@@ -154,6 +159,12 @@ export class PricingService {
     this.currentPackage.tv.base = tvPackage[1];
     this.currentPackage.tv.discount = tvPackage[2];
     this.updatePrice();
+  }
+
+  setNumberOfTvs(numberOfTvs): void {
+    this.currentPackage.tv.numberofTVs = numberOfTvs;
+    this.currentPackage.tv.costOfExtraTvs = this.perTVCost * (numberOfTvs - 1);
+    this.updatePrice();   
   }
 
   setInternetPackage(internetPackage: any[]): void {

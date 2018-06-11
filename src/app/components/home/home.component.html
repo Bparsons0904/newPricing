@@ -23,7 +23,13 @@
   
   <div id="packages" class="row" *ngIf="currentService">
     <div *ngFor="let package of currentService.packages">
-      <button (click)=selectPackage(package)>{{ package[0] }}</button>
+      <button (click)=selectPackage(package) id="{{ package[0] }}" class="packages">{{ package[0] }}</button>
+    </div>
+  </div>
+
+  <div id="tv-selection" class="row">
+    <div *ngFor="let tv of maxTV">
+      <button (click)=selectNumberOfTvs(tv) id="tv{{ tv }}" class="tvs">{{ tv }}</button>
     </div>
   </div>
   
