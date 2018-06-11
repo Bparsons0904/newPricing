@@ -9,33 +9,21 @@ directv: any;
 uverse: any;
 
   constructor() {
+    // Packages = [<name>, <base-price>, <1styear-discount>]
+    // Discounts = [<name>, <1styear-discount>, <2ndyear-discount>]
+
     this.directv = {
       name: 'DirecTV',
       packages: [['Entertainment', 30, 15], ['Select', 50, 25], ['Choice', 100, 35]],
-      discounts1Year: [['AutoPay', 5]],
-      discounts2Year: [['HBO', 17], ['Unlimited', 15]]
+      discounts: [['Autopay', 5, 0, false, 0],['Unlimited', 0, 15, false, 1]],
+      activeDiscounts: [],
     }
-    // this.directv.packages.forEach(element => {
-    //   this.directv.array.push(element)
-    // });
-    // console.log(this.directv, this.directv.packages, this.directv.array);
-    
-    
+
     this.uverse = {
       name: 'Uverse',
-      package: {
-        u200: {
-          name: 'U-200',
-          base: 50,
-          discount: 25
-        },
-        u300: {
-          name: 'U-300',
-          base: 100,
-          discount: 35
-        }
-      },
-      discounts: ['autopay']
+      packages: [['U-200', 30, 15], ['U-300', 50, 25], ['U-450', 100, 35]],
+      discounts: [['Autopay', 5, 0],['Unlimited', 0, 15]],
+      activeDiscounts: [],
     }
 
   }

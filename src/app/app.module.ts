@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+
 import { AppRoutingModule } from './/app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
@@ -10,6 +11,8 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PricingService } from './services/pricing.service';
 import { TvService } from './services/tv.service';
+import { DiscountsService } from './services/discounts.service';
+import { InternetService } from './services/internet.service';
 
 @NgModule({
   declarations: [
@@ -25,7 +28,7 @@ import { TvService } from './services/tv.service';
     MatTabsModule,
     BrowserAnimationsModule,
   ],
-  providers: [PricingService, TvService],
+  providers: [PricingService, TvService, DiscountsService, InternetService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

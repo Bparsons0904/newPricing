@@ -1,22 +1,43 @@
 <div class="row pricing">
   <div class="pricing-tab">
     <p class="text-center">Months 1-12</p>
-    <p class="text-center">${{ year1 }}</p>
+    <p class="text-center">${{ pricingService.year1 }}</p>
   </div>
   <div class="pricing-tab">
     <p class="text-center">Months 13+</p>
-    <p class="text-center">${{ year2 }}</p>
+    <p class="text-center">${{ pricingService.year2 }}</p>
   </div>
 </div>
 
-<div class="row" *ngIf="package1">
-  Hello fd
-  {{ package1.tv.base }}
+<div>
+  {{ currentService.name }}
 </div>
 
-<div class="row">
-  <div *ngFor="let package of directv.packages">
+<button (click)=testButton()>Test button</button>
+
+<div class="row" *ngIf="tempPackage">
+  <p>Temp Package Price</p>
+  {{ tempPackage.tv.base }}
+</div>
+
+<div class="row" *ngIf="currentService">
+  <div *ngFor="let package of currentService.packages">
     <button (click)=selectPackage(package)>{{ package[0] }}</button>
-    
   </div>
 </div>
+
+<div class="row" *ngIf="currentService">
+  <div *ngFor="let discount of currentService.discounts">
+    <button (click)=selectDiscount(discount)>{{ discount[0] }}</button>
+  </div>
+  <div *ngFor="let discount of currentService.discounts">
+    <p>{{ discount[0] }}</p>
+    <p>{{ discount[3] }}</p>
+  </div>
+</div>
+
+<!-- <div class="jeffjiv">
+  <p class="patrica">
+    Jeff and Patrica have 3 kids and 32 1/2 cats , along with 24 dogs. People often forget about their 10,934 goats. Jeff's dad comes to Jeff and Patrica's house and says"Hey Patrica, how are you?" Patrica replies"Good!How about you,Dad? do you know when mom is getting here."" 
+  </p>
+</div> -->
