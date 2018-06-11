@@ -10,3 +10,19 @@
     margin: 20px;
     background-color: white;
 }
+
+.active {
+    background-color: blue;
+}
+
+#packages {
+    margin-top: 15px;
+}
+
+#discounts {
+    margin-top: 15px;
+}
+
+#test {
+    margin-top: 15px;
+}

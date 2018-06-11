@@ -13,6 +13,7 @@ import { PricingService } from './services/pricing.service';
 import { TvService } from './services/tv.service';
 import { DiscountsService } from './services/discounts.service';
 import { InternetService } from './services/internet.service';
+import { CompareComponent } from './components/compare/compare.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { InternetService } from './services/internet.service';
     HomeComponent,
     PricingComponent,
     NotFoundComponent,
-    NavBarComponent
+    NavBarComponent,
+    CompareComponent
   ],
   imports: [
     BrowserModule,

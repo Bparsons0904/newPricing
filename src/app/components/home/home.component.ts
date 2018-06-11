@@ -15,9 +15,10 @@ import { Observable } from 'rxjs';
 export class HomeComponent implements OnInit {
 
   currentService: object;
+  activeServiceType: string;
   tempPackage: Package;
   package1: Package;
-  package2: Package;1
+  package2: Package;
   package3: Package;
 
   constructor(
@@ -26,27 +27,29 @@ export class HomeComponent implements OnInit {
     private discountsService: DiscountsService,
     private internetService: InternetService,
   ) {
-    this.package1 = {
-      name: "test1",
-      tv: {
-        selected: true,
-        tvType: 'DirecTV',
-        package: 'Choice',
-        base: 50,
-        discount: 25,
-      }
-    }
-    this.tempPackage = {
-      name: "Temp Package",
-      tv: {
-        selected: false,
-        tvType: '',
-        package: '',
-        base: 0,
-        discount: 0,
-      },
-      discounts: [],
-    }
+    // this.package1 = {
+    //   name: "test1",
+    //   tv: {
+    //     selected: true,
+    //     tvType: 'DirecTV',
+    //     package: 'Choice',
+    //     base: 50,
+    //     discount: 25,
+    //   }
+    // }
+    // this.tempPackage = {
+    //   name: "Temp Package",
+    //   tv: {
+    //     selected: false,
+    //     tvType: '',
+    //     package: '',
+    //     base: 0,
+    //     discount: 0,
+    //   },
+    //   discounts: [],
+    //   year1Pricing: 0,
+    //   year2Pricing: 0,
+    // }
 
     
 
@@ -55,8 +58,10 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.pricingService.setService('dtv-select');
     this.pricingService.castCurrentService.subscribe(currentService => {
       this.currentService = currentService;
+      this.activeServiceType = currentService.type;
     });
   }
 
@@ -68,15 +73,20 @@ export class HomeComponent implements OnInit {
     this.pricingService.setDiscountTV(discount);
   }
 
-  selectPackage(TVPackage): void {
-    this.pricingService.setTVPackage(TVPackage);
-    this.tempPackage.tv = {
-      selected: true,
-      // tvType: this.tvType,
-      package: TVPackage[0],
-      base: TVPackage[1],
-      discount: TVPackage[2],
+  selectPackage(selectedPackage): void {
+    if (this.activeServiceType === 'tv') {
+      this.pricingService.setTVPackage(selectedPackage);
+    } else {
+      this.pricingService.setInternetPackage(selectedPackage)
     }
+    
+    // this.tempPackage.tv = {
+    //   selected: true,
+    //   // tvType: this.tvType,
+    //   package: TVPackage[0],
+    //   base: TVPackage[1],
+    //   discount: TVPackage[2],
+    // }
     this.update();
   }
 

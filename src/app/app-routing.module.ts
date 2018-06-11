@@ -4,10 +4,11 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
+import { CompareComponent } from './components/compare/compare.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
-  // User Profile Addins
+  { path: 'compare', component: CompareComponent },
   { path: '**', component: NotFoundComponent },
 ];
 @NgModule({

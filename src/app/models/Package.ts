@@ -4,20 +4,24 @@ export interface Package {
         selected?: boolean;
         tvType?: string;
         package?: string;
+        numberofTVs?: number;
+        costOfExtraTvs?: number;
         base?: number;
         discount?: number;
     };
     internet?: {
         selected?: boolean;
-        tvType?: string;
+        internetSpeed?: string;
         base?: number;
         discount?: number;
     };
     phone?: {
         selected?: boolean;
-        tvType?: string;
+        phoneService?: string;
         base?: number;
         discount?: number;
     };
+    year1Pricing: number;
+    year2Pricing: number;
     discounts?: any[];
 }

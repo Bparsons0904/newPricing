@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { TvService } from './tv.service';
+import { InternetService } from './internet.service';
 import { Observable, of } from 'rxjs';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+import { Package } from '../models/Package';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +13,7 @@ export class PricingService {
   year1: number = 0;
   year2: number = 0;
 
-  private currentService = new BehaviorSubject<any>(this.tvService.directv);
+  private currentService = new BehaviorSubject<any>(null);
   castCurrentService = this.currentService.asObservable();
 
   service: string;
@@ -21,51 +23,122 @@ export class PricingService {
   discountTV: number = 0;
   discountInternetYear1: number = 0;
   discountInternetYear2: number = 0;
+  currentPackage: Package;
 
   constructor(
     private tvService: TvService,
-  ) { }
+    private internetService: InternetService,
+  ) {
+    this.currentPackage = {
+      name: 'currentPackage',
+      tv: {
+        selected: false,
+        tvType: '',
+        package: '',
+        numberofTVs: 1,
+        costOfExtraTvs: 0,
+        base: 0,
+        discount: 0,
+      },
+      internet: {
+        selected: false,
+        internetSpeed: '',
+        base: 0,
+        discount: 0,
+      },
+      phone: {
+        selected: false,
+        phoneService: '',
+        base: 0,
+        discount: 0,
+      },
+      year1Pricing: 0,
+      year2Pricing: 0,
+      discounts: [],
+    }
+  }
 
   updatePrice() {
-    this.year1 = this.base - this.discountTV - this.discountInternetYear1 - this.discountYear1;
-    this.year2 = this.base - this.discountInternetYear2 - this.discountYear2;
+    this.currentPackage.year1Pricing = this.currentPackage.tv.base + this.currentPackage.tv.costOfExtraTvs - this.currentPackage.tv.discount;
+    this.currentPackage.year2Pricing = this.currentPackage.tv.base + this.currentPackage.tv.costOfExtraTvs;
   }
 
   // getCurrentService(): Observable<object> {
   //   return of(this.currentService);
   // }
 
-  setService(currentService) {
-    if (currentService === 'dtv-select') {
-      this.currentService.next(this.tvService.directv);
-    } else {
-      this.currentService.next(this.tvService.uverse);
+  resetTVPackage(): void {
+    this.currentPackage.tv = {
+      selected: false,
+      tvType: '',
+      package: '',
+      numberofTVs: 1,
+      costOfExtraTvs: 0,
+      base: 0,
+      discount: 0,
+    }
+    this.updatePrice();
+  }
+  
+  setService(currentServiceName) {
+    switch (currentServiceName) {
+      case 'dtv-select':
+        this.resetTVPackage();
+        this.currentService.next(this.tvService.directv);
+        this.currentPackage.tv.tvType = this.tvService.directv.name;
+        break;
+      case 'uvtv-select':
+        this.resetTVPackage();
+        this.currentService.next(this.tvService.uverse);
+        this.currentPackage.tv.tvType = this.tvService.uverse.name;
+        break;
+      case 'now-select':
+        this.resetTVPackage();
+        this.currentService.next(this.tvService.dtvnow);
+        this.currentPackage.tv.tvType = this.tvService.dtvnow.name;
+        break;
+      default:
+        this.currentService.next(this.internetService.internet);
+        break;
     }
   }
 
+  resetTVDiscounts() {
+
+  }
+
   setDiscountTV(discount) {
-    this.currentService.subscribe(currentService => {
-      const service = currentService.name;
-      if (discount[3] === false) {
-        this.discountYear1 += discount[1];
-        this.discountYear2 += discount[2];
-      } else {
-        this.discountYear1 -= discount[1];
-        this.discountYear2 -= discount[2];
-      }
-      discount[3] = !discount[3];
-      currentService.discounts[discount[4]] = discount;
-      this.updatePrice();
-    })
+    console.log(discount);
+    
+    // this.currentService.subscribe(currentService => {
+    //   this.service = currentService.name;
+    //   if (discount[3] === false) {
+    //     this.discountYear1 += discount[1];
+    //     this.discountYear2 += discount[2];
+    //   } else {
+    //     this.discountYear1 -= discount[1];
+    //     this.discountYear2 -= discount[2];
+    //   }
+    //   discount[3] = !discount[3];
+    //   currentService.discounts[discount[4]] = discount;
+    //   this.updatePrice();
+    // })
 
     // const element = [discount[0], true];
     // this.tvService.directv.activeDiscounts.push(element);
   }
 
-  setTVPackage(TVPackage: any[]) {
-    this.base = TVPackage[1];
-    this.discountTV = TVPackage[2];
+  setTVPackage(tvPackage: any[]): void {
+    this.currentPackage.tv.selected = true;
+    this.currentPackage.tv.package = tvPackage[0];
+    this.currentPackage.tv.base = tvPackage[1];
+    this.currentPackage.tv.discount = tvPackage[2];
     this.updatePrice();
+  }
+
+  setInternetPackage(internetPackage: any[]): void {
+    console.log("Set internet ran");
+    
   }
 
   setDiscounts(discounts: number[]) {
