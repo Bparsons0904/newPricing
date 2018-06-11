@@ -14,6 +14,7 @@ export interface Package {
         internetSpeed?: string;
         base?: number;
         discount?: number;
+        bundled?: boolean;
     };
     phone?: {
         selected?: boolean;
@@ -23,5 +24,7 @@ export interface Package {
     };
     year1Pricing: number;
     year2Pricing: number;
+    year1Discount: number;
+    year2Discount: number;
     discounts?: any[];
 }

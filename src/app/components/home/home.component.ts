@@ -16,10 +16,12 @@ export class HomeComponent implements OnInit {
 
   currentService: object;
   activeServiceType: string;
-  tempPackage: Package;
   package1: Package;
   package2: Package;
   package3: Package;
+
+  Autopay: boolean;
+  Unlimited: boolean;
 
   constructor(
     private pricingService: PricingService,
@@ -69,8 +71,28 @@ export class HomeComponent implements OnInit {
 
   }
 
+  setDiscountActive(): void {
+    const array = document.querySelectorAll('.discounts');
+    for (let i = 0; i < array.length; i++) {
+      const element = array[i];
+      element.classList.remove('active')
+    }
+    this.pricingService.currentPackage.discounts.forEach(discount => {
+      const element = document.getElementById(discount);
+      element.classList.add('active');
+    });
+  }
+
   selectDiscount(discount): void {
-    this.pricingService.setDiscountTV(discount);
+    const status = this.pricingService.setDiscountTV(discount);
+    // this.setDiscountActive();
+    const element = document.getElementById(discount[0]);
+    if (status) {
+      element.classList.add('active');
+    } else {
+      element.classList.remove('active');
+    }
+    
   }
 
   selectPackage(selectedPackage): void {
@@ -91,8 +113,10 @@ export class HomeComponent implements OnInit {
   }
 
   testButton() {
-    console.log(this.currentService);
+    console.log("Test Button");
     
+    // console.log(this.pricingService.currentPackage.discounts);
+    this.setDiscountActive();
   }
 
 }

@@ -45,6 +45,7 @@ export class PricingService {
         internetSpeed: '',
         base: 0,
         discount: 0,
+        bundled: false,
       },
       phone: {
         selected: false,
@@ -54,13 +55,15 @@ export class PricingService {
       },
       year1Pricing: 0,
       year2Pricing: 0,
+      year1Discount: 0,
+      year2Discount: 0,
       discounts: [],
     }
   }
 
   updatePrice() {
-    this.currentPackage.year1Pricing = this.currentPackage.tv.base + this.currentPackage.tv.costOfExtraTvs - this.currentPackage.tv.discount;
-    this.currentPackage.year2Pricing = this.currentPackage.tv.base + this.currentPackage.tv.costOfExtraTvs;
+    this.currentPackage.year1Pricing = this.currentPackage.tv.base + this.currentPackage.tv.costOfExtraTvs - this.currentPackage.tv.discount - this.currentPackage.year1Discount;
+    this.currentPackage.year2Pricing = this.currentPackage.tv.base + this.currentPackage.tv.costOfExtraTvs - this.currentPackage.year2Discount;
   }
 
   // getCurrentService(): Observable<object> {
@@ -77,6 +80,9 @@ export class PricingService {
       base: 0,
       discount: 0,
     }
+    this.currentPackage.discounts = [];
+    this.currentPackage.year1Discount = 0;
+    this.currentPackage.year2Discount = 0;
     this.updatePrice();
   }
   
@@ -98,17 +104,31 @@ export class PricingService {
         this.currentPackage.tv.tvType = this.tvService.dtvnow.name;
         break;
       default:
+        this.resetTVPackage();
         this.currentService.next(this.internetService.internet);
         break;
     }
   }
 
   resetTVDiscounts() {
-
+    
   }
 
-  setDiscountTV(discount) {
-    console.log(discount);
+  setDiscountTV(discount): boolean {
+    const index: number = this.currentPackage.discounts.indexOf(discount[0]);
+    let status: boolean = false;
+    if (index === -1) {
+      this.currentPackage.discounts.push(discount[0]);
+      this.currentPackage.year1Discount += discount[1];
+      this.currentPackage.year2Discount += discount[2];
+      status = true;
+    } else {
+      this.currentPackage.discounts.splice(index, 1);
+      this.currentPackage.year1Discount -= discount[1];
+      this.currentPackage.year2Discount -= discount[2];
+    }
+    this.updatePrice();
+    return status
     
     // this.currentService.subscribe(currentService => {
     //   this.service = currentService.name;
@@ -141,12 +161,12 @@ export class PricingService {
     
   }
 
-  setDiscounts(discounts: number[]) {
-    this.discountYear1 = 0
-    discounts.forEach(element => {
-      this.discountYear1 += element;
-    });
-  }
+  // setDiscounts(discounts: number[]) {
+  //   this.discountYear1 = 0
+  //   discounts.forEach(element => {
+  //     this.discountYear1 += element;
+  //   });
+  // }
 
 
 

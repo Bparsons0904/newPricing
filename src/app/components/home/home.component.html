@@ -29,7 +29,8 @@
   
   <div id="discounts" class="row" *ngIf="currentService">
     <div *ngFor="let discount of currentService.discounts">
-      <button (click)=selectDiscount(discount) [ngClass]="{'active': discount[3]==true}">{{ discount[0] }}</button>
+      <button (click)=selectDiscount(discount) id="{{ discount[0] }}" class="discounts">{{ discount[0] }}</button>
+      <!-- <button (click)=selectDiscount(discount) [ngClass]="{'active': discount[3]==true}">{{ discount[0] }}</button> -->
     </div>
     <!-- <div *ngFor="let discount of currentService.discounts">
       <p>{{ discount[0] }}</p>
