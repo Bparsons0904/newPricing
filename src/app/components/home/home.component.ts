@@ -142,8 +142,6 @@ export class HomeComponent implements OnInit {
   }
 
   bundleServices(): void {
-    console.log(this.pricingService.currentPackage.internet.bundled);
-    
     this.pricingService.currentPackage.internet.bundled = !this.pricingService.currentPackage.internet.bundled;
     const element = document.getElementById('bundle');
     if (this.pricingService.currentPackage.internet.bundled) {
@@ -151,8 +149,7 @@ export class HomeComponent implements OnInit {
     } else {
       element.classList.remove('active')
     }
-    this.pricingService.bundledService();
-    console.log(this.pricingService.currentPackage.internet.bundled);
+    this.pricingService.bundledService(this.activeServiceType);
   }
 
   testButton() {

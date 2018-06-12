@@ -142,8 +142,16 @@ export class PricingService {
     }
   }
 
-  bundledService() {
-    
+  bundledService(activeServiceType) {
+    if (this.currentPackage.internet.bundled && activeServiceType != 'tv' && this.currentPackage.internet.base > 0) {
+      this.currentPackage.internet.discountBundled += 20;
+      this.currentPackage.internet.discount1Year -= 10;
+      this.updatePrice();
+    } else if (!this.currentPackage.internet.bundled && activeServiceType != 'tv' && this.currentPackage.internet.base > 0) {
+      this.currentPackage.internet.discountBundled -= 20;
+      this.currentPackage.internet.discount1Year += 10;
+      this.updatePrice();
+    }
   }
 
   setDiscountTV(discount, activeServiceType): boolean {
