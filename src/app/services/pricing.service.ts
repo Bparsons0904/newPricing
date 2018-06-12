@@ -15,14 +15,15 @@ export class PricingService {
 
   private currentService = new BehaviorSubject<any>(null);
   castCurrentService = this.currentService.asObservable();
-
-  service: string;
-  base: number = 0;
-  discountYear1: number = 0;
-  discountYear2: number = 0;
-  discountTV: number = 0;
-  discountInternetYear1: number = 0;
-  discountInternetYear2: number = 0;
+  
+  internetPackages: object;
+  // service: string;
+  // base: number = 0;
+  // discountYear1: number = 0;
+  // discountYear2: number = 0;
+  // discountTV: number = 0;
+  // discountInternetYear1: number = 0;
+  // discountInternetYear2: number = 0;
 
   currentPackage: Package;
   perTVCost: number;
@@ -46,7 +47,8 @@ export class PricingService {
         selected: false,
         internetSpeed: '',
         base: 0,
-        discount: 0,
+        discountBundled: 0,
+        discount1Year: 0,
         bundled: false,
       },
       phone: {
@@ -61,76 +63,107 @@ export class PricingService {
       year2Discount: 0,
       discounts: [],
     }
+
+    this.internetPackages = this.internetService.internet;
   }
 
   updatePrice() {
-    this.currentPackage.year1Pricing = this.currentPackage.tv.base + this.currentPackage.tv.costOfExtraTvs - this.currentPackage.tv.discount - this.currentPackage.year1Discount;
-    this.currentPackage.year2Pricing = this.currentPackage.tv.base + this.currentPackage.tv.costOfExtraTvs - this.currentPackage.year2Discount
+    this.currentPackage.year1Pricing = this.currentPackage.tv.base + this.currentPackage.tv.costOfExtraTvs - this.currentPackage.tv.discount - this.currentPackage.year1Discount - this.currentPackage.internet.discount1Year + this.currentPackage.internet.base - this.currentPackage.internet.discountBundled;
+
+    this.currentPackage.year2Pricing = this.currentPackage.tv.base + this.currentPackage.tv.costOfExtraTvs - this.currentPackage.year2Discount - this.currentPackage.internet.discountBundled + this.currentPackage.internet.base;
   }
 
   // getCurrentService(): Observable<object> {
   //   return of(this.currentService);
   // }
 
-  resetTVPackage(): void {
-    this.currentPackage.tv = {
-      selected: false,
-      tvType: '',
-      package: '',
-      numberofTVs: 1,
-      costOfExtraTvs: 0,
-      base: 0,
-      discount: 0,
+  resetPackages(): void {
+    this.currentPackage = {
+      name: 'currentPackage',
+      tv: {
+        selected: false,
+        tvType: '',
+        package: '',
+        numberofTVs: 1,
+        costOfExtraTvs: 0,
+        base: 0,
+        discount: 0,
+      },
+      internet: {
+        selected: false,
+        internetSpeed: '',
+        base: 0,
+        discountBundled: 0,
+        discount1Year: 0,
+        bundled: false,
+      },
+      phone: {
+        selected: false,
+        phoneService: '',
+        base: 0,
+        discount: 0,
+      },
+      year1Pricing: 0,
+      year2Pricing: 0,
+      year1Discount: 0,
+      year2Discount: 0,
+      discounts: [],
     }
-    this.currentPackage.discounts = [];
-    this.currentPackage.year1Discount = 0;
-    this.currentPackage.year2Discount = 0;
     this.updatePrice();
   }
   
   setService(currentServiceName) {
     switch (currentServiceName) {
       case 'dtv-select':
-        this.resetTVPackage();
+        this.resetPackages();
         this.currentService.next(this.tvService.directv);
         this.currentPackage.tv.tvType = this.tvService.directv.name;
         this.perTVCost = this.tvService.directv.perTVCost;
+        this.currentPackage.internet.bundled = true;
         break;
       case 'uvtv-select':
-        this.resetTVPackage();
+        this.resetPackages();
         this.currentService.next(this.tvService.uverse);
         this.currentPackage.tv.tvType = this.tvService.uverse.name;
         this.perTVCost = this.tvService.uverse.perTVCost;
+        this.currentPackage.internet.bundled = true;
         break;
       case 'now-select':
-        this.resetTVPackage();
+        this.resetPackages();
         this.currentService.next(this.tvService.dtvnow);
         this.currentPackage.tv.tvType = this.tvService.dtvnow.name;
         this.perTVCost = this.tvService.dtvnow.perTVCost;
+        this.currentPackage.internet.bundled = false;
         break;
       default:
-        this.resetTVPackage();
+        this.resetPackages();
         this.currentService.next(this.internetService.internet);
         break;
     }
   }
 
-  resetTVDiscounts() {
+  bundledService() {
     
   }
 
-  setDiscountTV(discount): boolean {
+  setDiscountTV(discount, activeServiceType): boolean {
     const index: number = this.currentPackage.discounts.indexOf(discount[0]);
     let status: boolean = false;
     if (index === -1) {
       this.currentPackage.discounts.push(discount[0]);
       this.currentPackage.year1Discount += discount[1];
       this.currentPackage.year2Discount += discount[2];
+      if (activeServiceType == 'stream') {
+        this.currentPackage.year1Discount += discount[2];
+      }
       status = true;
     } else {
       this.currentPackage.discounts.splice(index, 1);
       this.currentPackage.year1Discount -= discount[1];
       this.currentPackage.year2Discount -= discount[2];
+      if (activeServiceType == 'stream') {
+        this.currentPackage.year1Discount -= discount[2];
+      }
     }
     this.updatePrice();
     return status
@@ -168,8 +201,18 @@ export class PricingService {
   }
 
   setInternetPackage(internetPackage: any[]): void {
-    console.log("Set internet ran");
-    
+    if (internetPackage[1] <= 0) {
+      this.currentPackage.internet.selected = true;
+    } else {
+      this.currentPackage.internet.selected = false;
+    }
+    this.currentPackage.internet.base = internetPackage[1];
+    if (this.currentPackage.internet.bundled) {
+      this.currentPackage.internet.discountBundled = internetPackage[2];
+    } else {
+      this.currentPackage.internet.discount1Year = internetPackage[3];
+    }
+    this.updatePrice();
   }
 
   // setDiscounts(discounts: number[]) {

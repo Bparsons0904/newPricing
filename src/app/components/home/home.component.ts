@@ -79,21 +79,8 @@ export class HomeComponent implements OnInit {
 
   }
 
-  // setDiscountActive(): void {
-  //   const array = document.querySelectorAll('.discounts');
-  //   for (let i = 0; i < array.length; i++) {
-  //     const element = array[i];
-  //     element.classList.remove('active')
-  //   }
-  //   this.pricingService.currentPackage.discounts.forEach(discount => {
-  //     const element = document.getElementById(discount);
-  //     element.classList.add('active');
-  //   });
-  // }
-
   selectDiscount(discount): void {
-    const status = this.pricingService.setDiscountTV(discount);
-    // this.setDiscountActive();
+    const status = this.pricingService.setDiscountTV(discount, this.activeServiceType);
     const element = document.getElementById(discount[0]);
     if (status) {
       element.classList.add('active');
@@ -104,7 +91,7 @@ export class HomeComponent implements OnInit {
   }
 
   selectPackage(selectedPackage): void {
-    if (this.activeServiceType === 'tv') {
+    if (this.activeServiceType === 'tv' || this.activeServiceType === 'stream') {
       this.pricingService.setTVPackage(selectedPackage);
     } else {
       this.pricingService.setInternetPackage(selectedPackage)
@@ -137,13 +124,40 @@ export class HomeComponent implements OnInit {
       const element = array[i];
       element.classList.remove('active')
     }
-    const element = document.getElementById('tv'+ numberOfTvs);
+    for (let i = 1; i <= numberOfTvs; i++) {
+      const element = document.getElementById('tv' + i);
+      element.classList.add('active')
+    }
+  }
+
+  selectInternet(internetPackage): void {
+    this.pricingService.setInternetPackage(internetPackage);
+    const array = document.querySelectorAll('.internet');
+    for (let i = 0; i < array.length; i++) {
+      const element = array[i];
+      element.classList.remove('active')
+    }
+    const element = document.getElementById(internetPackage[0]);
     element.classList.add('active')
+  }
+
+  bundleServices(): void {
+    console.log(this.pricingService.currentPackage.internet.bundled);
+    
+    this.pricingService.currentPackage.internet.bundled = !this.pricingService.currentPackage.internet.bundled;
+    const element = document.getElementById('bundle');
+    if (this.pricingService.currentPackage.internet.bundled) {
+      element.classList.add('active')
+    } else {
+      element.classList.remove('active')
+    }
+    this.pricingService.bundledService();
+    console.log(this.pricingService.currentPackage.internet.bundled);
   }
 
   testButton() {
     console.log("Test Button");
-    
+    console.log(this.pricingService.currentPackage.internet.bundled);
     // console.log(this.pricingService.currentPackage.discounts);
     // this.setDiscountActive();
   }

@@ -13,7 +13,8 @@ export interface Package {
         selected?: boolean;
         internetSpeed?: string;
         base?: number;
-        discount?: number;
+        discountBundled?: number;
+        discount1Year?: number;
         bundled?: boolean;
     };
     phone?: {
@@ -22,9 +23,9 @@ export interface Package {
         base?: number;
         discount?: number;
     };
-    year1Pricing: number;
-    year2Pricing: number;
-    year1Discount: number;
-    year2Discount: number;
+    year1Pricing?: number;
+    year2Pricing?: number;
+    year1Discount?: number;
+    year2Discount?: number;
     discounts?: any[];
 }
