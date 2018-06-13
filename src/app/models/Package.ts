@@ -4,6 +4,7 @@ export interface Package {
         selected?: boolean;
         tvType?: string;
         package?: string;
+        spanish?: boolean;
         numberofTVs?: number;
         costOfExtraTvs?: number;
         base?: number;

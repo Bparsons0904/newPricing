@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { TvService } from './tv.service';
 import { InternetService } from './internet.service';
-import { Observable, of } from 'rxjs';
+// import { Observable, of } from 'rxjs';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { Package } from '../models/Package';
 
@@ -10,8 +10,8 @@ import { Package } from '../models/Package';
 })
 export class PricingService {
 
-  year1: number = 0;
-  year2: number = 0;
+  initComplete: boolean = false;
+  spanishSelected: boolean = false;
 
   private currentService = new BehaviorSubject<any>(null);
   castCurrentService = this.currentService.asObservable();
@@ -38,6 +38,7 @@ export class PricingService {
         selected: false,
         tvType: '',
         package: '',
+        spanish: false,
         numberofTVs: 1,
         costOfExtraTvs: 0,
         base: 0,
@@ -77,6 +78,10 @@ export class PricingService {
   //   return of(this.currentService);
   // }
 
+  setInit(): void {
+    this.initComplete = true;
+  }
+
   resetPackages(): void {
     this.currentPackage = {
       name: 'currentPackage',
@@ -84,6 +89,7 @@ export class PricingService {
         selected: false,
         tvType: '',
         package: '',
+        spanish: false,
         numberofTVs: 1,
         costOfExtraTvs: 0,
         base: 0,
@@ -111,6 +117,23 @@ export class PricingService {
     }
     this.updatePrice();
   }
+
+  setSpanishPackage(): void {
+    this.spanishSelected = !this.spanishSelected;
+    if (this.spanishSelected) {
+      if (this.currentPackage.tv.tvType === 'DirecTV') {
+        this.setService('dtv-spanish-select');
+      } else {
+        this.setService('uvtv-spanish-select');
+      }
+    } else {
+      if (this.currentPackage.tv.tvType === 'DirecTV Spanish') {
+        this.setService('dtv-select');
+      } else {
+        this.setService('uvtv-select');
+      }
+    }
+  }
   
   setService(currentServiceName) {
     switch (currentServiceName) {
@@ -121,11 +144,25 @@ export class PricingService {
         this.perTVCost = this.tvService.directv.perTVCost;
         this.currentPackage.internet.bundled = true;
         break;
+      case 'dtv-spanish-select':
+        this.resetPackages();
+        this.currentService.next(this.tvService.directvSpanish);
+        this.currentPackage.tv.tvType = this.tvService.directvSpanish.name;
+        this.perTVCost = this.tvService.directvSpanish.perTVCost;
+        this.currentPackage.internet.bundled = true;
+        break;
       case 'uvtv-select':
         this.resetPackages();
         this.currentService.next(this.tvService.uverse);
         this.currentPackage.tv.tvType = this.tvService.uverse.name;
         this.perTVCost = this.tvService.uverse.perTVCost;
+        this.currentPackage.internet.bundled = true;
+        break;
+      case 'uvtv-spanish-select':
+        this.resetPackages();
+        this.currentService.next(this.tvService.uverseSpanish);
+        this.currentPackage.tv.tvType = this.tvService.uverseSpanish.name;
+        this.perTVCost = this.tvService.uverseSpanish.perTVCost;
         this.currentPackage.internet.bundled = true;
         break;
       case 'now-select':

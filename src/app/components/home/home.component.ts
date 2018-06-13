@@ -23,7 +23,7 @@ export class HomeComponent implements OnInit {
   package3: Package;
 
   maxTV: number[];
-
+  
   constructor(
     private pricingService: PricingService,
     private tvService: TvService,
@@ -61,7 +61,10 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.pricingService.setService('dtv-select');
+    if (!this.pricingService.initComplete) {
+      this.pricingService.setInit();
+      this.pricingService.setService('dtv-select');
+    }
     this.pricingService.castCurrentService.subscribe(currentService => {
       this.currentService = currentService;
       this.activeServiceType = currentService.type;
@@ -150,6 +153,17 @@ export class HomeComponent implements OnInit {
       element.classList.remove('active')
     }
     this.pricingService.bundledService(this.activeServiceType);
+  }
+
+  spanishSelect(): void {
+    // this.pricingService.currentPackage.tv.spanish = !this.pricingService.currentPackage.tv.spanish;
+    // const element = document.getElementById('spanish');
+    // if (this.pricingService.currentPackage.tv.spanish) {
+    //   element.classList.add('active')
+    // } else {
+    //   element.classList.remove('active')
+    // }
+    this.pricingService.setSpanishPackage();
   }
 
   testButton() {

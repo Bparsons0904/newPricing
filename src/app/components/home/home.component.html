@@ -17,6 +17,9 @@
   <div *ngIf="activeServiceType != 'tv'">
     <button (click)="bundleServices()" id="bundle">Bundle</button>
   </div>
+  <div *ngIf="activeServiceType == 'tv'">
+    <button (click)="spanishSelect()" id="spanish" [ngClass]="{'active': pricingService.spanishSelected}">Spanish</button>
+  </div>
   
   <!-- <div class="row" *ngIf="tempPackage">
     <p>Temp Package Price</p>

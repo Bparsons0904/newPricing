@@ -6,7 +6,9 @@ import { Injectable } from '@angular/core';
 export class TvService {
 
 directv: any;
+directvSpanish: any;
 uverse: any;
+uverseSpanish: any;
 dtvnow: any;
 
   constructor() {
@@ -22,12 +24,30 @@ dtvnow: any;
       discounts: [['Autopay', 5, 0],['Unlimited', 0, 15]],
     }
 
+    this.directvSpanish = {
+      name: 'DirecTV Spanish',
+      type: 'tv',
+      maxTV: 8,
+      perTVCost: 7,
+      packages: [['SpanishSelect', 78, 38], ['SpanishSEntertainment', 90, 45], ['SpanishSChoice', 105, 55], ['SpanishSXtra', 117, 57], ['SpanishSUltimate', 128, 63], ['SpanishSPremier', 181, 66]],
+      discounts: [['Autopay', 5, 0],['Unlimited', 0, 15]],
+    }
+
     this.uverse = {
       name: 'Uverse',
       type: 'tv',
       maxTV: 6,
       perTVCost: 10,
       packages: [['U-Family', 81, 41], ['U200', 102, 42], ['U300', 119, 54], ['U450', 147, 32]],
+      discounts: [['Autopay', 5, 0],['Unlimited', 0, 15]],
+    }
+
+    this.uverseSpanish = {
+      name: 'Uverse Spanish',
+      type: 'tv',
+      maxTV: 6,
+      perTVCost: 10,
+      packages: [['U-FamilySpanish', 81, 41], ['U200Spanish', 102, 42], ['U300Spanish', 119, 54], ['U450Spanish', 147, 32]],
       discounts: [['Autopay', 5, 0],['Unlimited', 0, 15]],
     }
 
