@@ -11,7 +11,6 @@ import { Package } from '../models/Package';
 export class PricingService {
 
   initComplete: boolean = false;
-  spanishSelected: boolean = false;
 
   private currentService = new BehaviorSubject<any>(null);
   castCurrentService = this.currentService.asObservable();
@@ -83,6 +82,8 @@ export class PricingService {
   }
 
   resetPackages(): void {
+    console.log("reset ran");
+    
     this.currentPackage = {
       name: 'currentPackage',
       tv: {
@@ -119,8 +120,8 @@ export class PricingService {
   }
 
   setSpanishPackage(): void {
-    this.spanishSelected = !this.spanishSelected;
-    if (this.spanishSelected) {
+    this.currentPackage.tv.spanish = !this.currentPackage.tv.spanish;
+    if (this.currentPackage.tv.spanish) {
       if (this.currentPackage.tv.tvType === 'DirecTV') {
         this.setService('dtv-spanish-select');
       } else {
@@ -150,6 +151,7 @@ export class PricingService {
         this.currentPackage.tv.tvType = this.tvService.directvSpanish.name;
         this.perTVCost = this.tvService.directvSpanish.perTVCost;
         this.currentPackage.internet.bundled = true;
+        this.currentPackage.tv.spanish = true;
         break;
       case 'uvtv-select':
         this.resetPackages();
@@ -164,6 +166,7 @@ export class PricingService {
         this.currentPackage.tv.tvType = this.tvService.uverseSpanish.name;
         this.perTVCost = this.tvService.uverseSpanish.perTVCost;
         this.currentPackage.internet.bundled = true;
+        this.currentPackage.tv.spanish = true;
         break;
       case 'now-select':
         this.resetPackages();
@@ -246,7 +249,7 @@ export class PricingService {
   }
 
   setInternetPackage(internetPackage: any[]): void {
-    if (internetPackage[1] <= 0) {
+    if (internetPackage[1] > 0) {
       this.currentPackage.internet.selected = true;
     } else {
       this.currentPackage.internet.selected = false;

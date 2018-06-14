@@ -8,6 +8,8 @@ import { PricingComponent } from './components/pricing/pricing.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDividerModule } from '@angular/material/divider';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PricingService } from './services/pricing.service';
 import { TvService } from './services/tv.service';
@@ -29,6 +31,8 @@ import { CompareComponent } from './components/compare/compare.component';
     AppRoutingModule,
     MatTabsModule,
     BrowserAnimationsModule,
+    MatDividerModule,
+    MatButtonModule,
   ],
   providers: [PricingService, TvService, DiscountsService, InternetService],
   bootstrap: [AppComponent]

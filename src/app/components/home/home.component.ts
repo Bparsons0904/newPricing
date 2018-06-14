@@ -2,11 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Package } from '../../models/Package';
 
 import { PricingService } from '../../services/pricing.service';
-import { TvService } from '../../services/tv.service';
-import { DiscountsService } from '../../services/discounts.service';
-import { InternetService } from '../../services/internet.service';
-import { Observable } from 'rxjs';
-import { element } from 'protractor';
+// import { TvService } from '../../services/tv.service';
+// import { DiscountsService } from '../../services/discounts.service';
+// import { InternetService } from '../../services/internet.service';
 
 @Component({
   selector: 'app-home',
@@ -26,9 +24,9 @@ export class HomeComponent implements OnInit {
   
   constructor(
     private pricingService: PricingService,
-    private tvService: TvService,
-    private discountsService: DiscountsService,
-    private internetService: InternetService,
+    // private tvService: TvService,
+    // private discountsService: DiscountsService,
+    // private internetService: InternetService,
   ) {
     // this.package1 = {
     //   name: "test1",
@@ -99,7 +97,7 @@ export class HomeComponent implements OnInit {
     } else {
       this.pricingService.setInternetPackage(selectedPackage)
     }
-    const array = document.querySelectorAll('.packages');
+    const array = document.querySelectorAll('.packages-tab');
     for (let i = 0; i < array.length; i++) {
       const element = array[i];
       element.classList.remove('active')
@@ -113,16 +111,12 @@ export class HomeComponent implements OnInit {
       if (numberOfTvs === 3) {
         this.pricingService.setNumberOfTvs(2);
       } else {
-        null
+        this.pricingService.setNumberOfTvs(1);
       }
     } else {
-      if (numberOfTvs >= 2) {
-        this.pricingService.setNumberOfTvs(numberOfTvs);
-      } else {
-        null
-      }
+      this.pricingService.setNumberOfTvs(numberOfTvs);
     }
-    const array = document.querySelectorAll('.tvs');
+    const array = document.querySelectorAll('.tv-tab');
     for (let i = 0; i < array.length; i++) {
       const element = array[i];
       element.classList.remove('active')
@@ -133,15 +127,22 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  removeInternet(): void {
+    this.pricingService.currentPackage.internet.selected = !this.pricingService.currentPackage.internet.selected;
+    this.selectInternet(['None', 0, 0, 0]);
+  }
+
   selectInternet(internetPackage): void {
     this.pricingService.setInternetPackage(internetPackage);
-    const array = document.querySelectorAll('.internet');
+    const array = document.querySelectorAll('.internet-tab');
     for (let i = 0; i < array.length; i++) {
       const element = array[i];
       element.classList.remove('active')
     }
-    const element = document.getElementById(internetPackage[0]);
-    element.classList.add('active')
+    if (internetPackage[1] > 0) {
+      const element = document.getElementById(internetPackage[0]);
+      element.classList.add('active')
+    }
   }
 
   bundleServices(): void {
@@ -164,6 +165,32 @@ export class HomeComponent implements OnInit {
     //   element.classList.remove('active')
     // }
     this.pricingService.setSpanishPackage();
+  }
+
+  clearBundle(): void {
+    this.pricingService.resetPackages();
+    // let element = document.getElementById('bundle');
+    // element.classList.remove('active')
+    let array = document.querySelectorAll('.internet-tab');
+    for (let i = 0; i < array.length; i++) {
+      const element = array[i];
+      element.classList.remove('active')
+    }
+    array = document.querySelectorAll('.tv-tab');
+    for (let i = 0; i < array.length; i++) {
+      const element = array[i];
+      element.classList.remove('active')
+    }
+    array = document.querySelectorAll('.packages-tab');
+    for (let i = 0; i < array.length; i++) {
+      const element = array[i];
+      element.classList.remove('active')
+    }
+    array = document.querySelectorAll('.discount-tab');
+    for (let i = 0; i < array.length; i++) {
+      const element = array[i];
+      element.classList.remove('active')
+    }
   }
 
   testButton() {
