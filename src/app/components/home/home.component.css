@@ -12,48 +12,74 @@
 }
 
 .container {
-    padding: 0px;
+    padding: 0px!important;
 }
 
 .active {
-    background-color: blue;
+    background-color: #00A8E0;
+    background-color: #00a6d6;
+    color: white;
 }
-
-#packages {
-    margin-top: 10px;
-}
-
-
-
-
-
-
 
 #test {
     margin-top: 15px;
 }
 
-.button {
+.button-pricing {
     border-radius: 15px;
 }
 
+.button {
+    border-radius: 15px;
+    border-style: groove;
+}
+
+#pricing-section {
+    background-color: #00a6d6;
+}
+
 .pricing-tab {
-    /* background-color: #1254e9; */
-    padding: 5px;
-    margin-left: 10px;
-    margin-right: 10px;
+    padding: 10px;
+    margin-left: 2.5px;
+    margin-right: 2.5px;
     min-width: 150px;
 }
 
 .pricing-tab p {
     font-size: 1.5em;
     margin-bottom: 0px;
+    color: white;
 }
 
 .pricing {
+    /* margin-top: 10px;
+    margin-bottom: 10px; */
+}
+
+#regional {
+    margin-bottom: 10px;
+    background-color: #00a6d6;
+    color: white;
+    padding-left: -15px;
+    padding-right: -15px;
+}
+
+#control-selection {
     margin-top: 10px;
     margin-bottom: 10px;
-    display: flex;
+}
+
+.control-tab {
+    /* background-color: #1254e9; */
+    padding: 10px;
+    margin-left: 2.5px;
+    margin-right: 2.5px;
+    min-width: 150px;
+    font-size: 1.25em;
+}
+
+#packages {
+    margin-top: 10px;
 }
 
 .packages-tab {
@@ -120,26 +146,6 @@
 }
 
 .internet-tab {
-    /* background-color: #1254e9; */
-    padding: 10px;
-    margin-left: 2.5px;
-    margin-right: 2.5px;
-    min-width: 150px;
-    font-size: 1.25em;
-}
-
-#control-selection {
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
-
-/* #control {
-    margin-top: 5px;
-    margin-bottom: 5px;
-    display: flex;
-} */
-
-.control-tab {
     /* background-color: #1254e9; */
     padding: 10px;
     margin-left: 2.5px;

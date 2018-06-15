@@ -169,8 +169,10 @@ export class HomeComponent implements OnInit {
 
   clearBundle(): void {
     this.pricingService.resetPackages();
-    // let element = document.getElementById('bundle');
-    // element.classList.remove('active')
+    let element = document.getElementById('bundle');
+    if (element) {
+      element.classList.remove('active')
+    }
     let array = document.querySelectorAll('.internet-tab');
     for (let i = 0; i < array.length; i++) {
       const element = array[i];
@@ -186,7 +188,7 @@ export class HomeComponent implements OnInit {
       const element = array[i];
       element.classList.remove('active')
     }
-    array = document.querySelectorAll('.discount-tab');
+    array = document.querySelectorAll('.discounts-tab');
     for (let i = 0; i < array.length; i++) {
       const element = array[i];
       element.classList.remove('active')

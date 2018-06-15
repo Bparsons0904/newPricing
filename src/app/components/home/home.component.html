@@ -1,15 +1,25 @@
 <div class="container">
 
-  <div class="row pricing-row">
+  <div id="pricing-section" class="row">
     <div class="pricing mx-auto">
-      <div class="pricing-tab button">
+      <div class="pricing-tab button-pricing text-center">
         <p class="text-center">Months 1-12</p>
         <p class="text-center">${{ pricingService.currentPackage.year1Pricing }}</p>
       </div>
-      <div class="pricing-tab button">
+    </div>
+    <div class="pricing mx-auto">
+      <div class="pricing-tab button-pricing text-center">
         <p class="text-center">Months 13+</p>
         <p class="text-center">${{ pricingService.currentPackage.year2Pricing }}</p>
       </div>
+    </div>
+  </div>
+
+  <div id="regional" class="row" *ngIf="pricingService.currentPackage.tv.regional">
+    <div class="mx-auto">
+      <div class="text-center">
+      Regional Sports Fee May Apply.  Amount Varies.
+    </div>
     </div>
   </div>
   <!-- End Pricing Row -->
@@ -53,7 +63,7 @@
 
   <mat-divider></mat-divider>
 
-  <div id="discounts-selection" *ngIf="currentService">
+  <div id="discounts-selection" *ngIf="activeServiceType !== 'internet'">
     <div class="row">
       <div class="text-center mx-auto">
         <h4 id="include-internet">Available Discounts</h4>
@@ -68,7 +78,7 @@
     
   </div>
 
-  <mat-divider></mat-divider>
+  <mat-divider *ngIf="activeServiceType !== 'internet'"></mat-divider>
 
   <div *ngIf="activeServiceType == 'tv' || activeServiceType == 'stream'" id="internet-selection">
     <div class="row">

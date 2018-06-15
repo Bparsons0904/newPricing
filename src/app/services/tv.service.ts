@@ -20,7 +20,7 @@ dtvnow: any;
       type: 'tv',
       maxTV: 8,
       perTVCost: 7,
-      packages: [['Select', 78, 38], ['Entertain', 90, 45], ['Choice', 105, 55], ['Xtra', 117, 57], ['Ultimate', 128, 63], ['Premier', 181, 66]],
+      packages: [['Select', 78, 38, false], ['Entertain', 90, 45, true], ['Choice', 105, 55, true], ['Xtra', 117, 57, true], ['Ultimate', 128, 63, true], ['Premier', 181, 66, true]],
       discounts: [['Autopay', 5, 0],['Unlimited', 0, 15]],
     }
 
@@ -29,25 +29,25 @@ dtvnow: any;
       type: 'tv',
       maxTV: 8,
       perTVCost: 7,
-      packages: [['SpanishSelect', 78, 38], ['SpanishSEntertainment', 90, 45], ['SpanishSChoice', 105, 55], ['SpanishSXtra', 117, 57], ['SpanishSUltimate', 128, 63], ['SpanishSPremier', 181, 66]],
+      packages: [['Mas Latino', 63, 3, false], ['Optimo Mas', 83, 43, true], ['Mas Ultra', 109, 59, true], ['Lo Maximo', 181, 75, true]],
       discounts: [['Autopay', 5, 0],['Unlimited', 0, 15]],
     }
 
     this.uverse = {
       name: 'Uverse',
       type: 'tv',
-      maxTV: 6,
+      maxTV: 8,
       perTVCost: 10,
-      packages: [['U-Family', 81, 41], ['U200', 102, 42], ['U300', 119, 54], ['U450', 147, 32]],
+      packages: [['U-Family', 81, 41, false], ['U200', 102, 42, true], ['U300', 119, 54, true], ['U450', 147, 32, true]],
       discounts: [['Autopay', 5, 0],['Unlimited', 0, 15]],
     }
 
     this.uverseSpanish = {
       name: 'Uverse Spanish',
       type: 'tv',
-      maxTV: 6,
+      maxTV: 8,
       perTVCost: 10,
-      packages: [['U-FamilySpanish', 81, 41], ['U200Spanish', 102, 42], ['U300Spanish', 119, 54], ['U450Spanish', 147, 32]],
+      packages: [ ['U200', 112, 42, true], ['U300', 129, 54, true], ['U450', 154, 32, true]],
       discounts: [['Autopay', 5, 0],['Unlimited', 0, 15]],
     }
 

@@ -1,11 +1,12 @@
 .tab-group {
-    background-color: blue;
+    background-color: #00a6d6;
     overflow: hidden;
     position: fixed;
     bottom: 0;
     width: 100%;
     margin: 0px;
     height: 50px;
+    color: white;
 }
 
 .nav-tab {
@@ -19,5 +20,17 @@
 
 .active {
     background-color: white;
-    color: black;
+    color: #00a6d6;
+    font-weight: bold;
+    border-style: solid;
+    border-color: white;
+    border-width: 5px;
+}
+
+textarea:focus, input:focus {
+    outline: none;
+}
+
+*:focus {
+    outline: none;
 }

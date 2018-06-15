@@ -9,6 +9,7 @@ export interface Package {
         costOfExtraTvs?: number;
         base?: number;
         discount?: number;
+        regional?: boolean;
     };
     internet?: {
         selected?: boolean;

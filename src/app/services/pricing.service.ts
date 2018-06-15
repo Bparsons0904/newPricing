@@ -42,6 +42,7 @@ export class PricingService {
         costOfExtraTvs: 0,
         base: 0,
         discount: 0,
+        regional: false,
       },
       internet: {
         selected: false,
@@ -82,8 +83,6 @@ export class PricingService {
   }
 
   resetPackages(): void {
-    console.log("reset ran");
-    
     this.currentPackage = {
       name: 'currentPackage',
       tv: {
@@ -95,6 +94,7 @@ export class PricingService {
         costOfExtraTvs: 0,
         base: 0,
         discount: 0,
+        regional: false,
       },
       internet: {
         selected: false,
@@ -239,6 +239,7 @@ export class PricingService {
     this.currentPackage.tv.package = tvPackage[0];
     this.currentPackage.tv.base = tvPackage[1];
     this.currentPackage.tv.discount = tvPackage[2];
+    this.currentPackage.tv.regional = tvPackage[3];
     this.updatePrice();
   }
 

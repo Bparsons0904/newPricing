@@ -12,7 +12,7 @@ export class InternetService {
     this.internet = {
       name: 'Broadband Internet',
       type: 'internet',
-      packages: [['Up to 50mb', 50, 20, 10], ['Up to 100mb', 60, 20, 10], ['Up to 300mb', 80, 20, 10], ['Up to 1000mb', 100, 20, 10]],
+      packages: [['Up to 5mb', 50, 20, 10], ['Up to 100mb', 60, 20, 10], ['Up to 300mb', 80, 20, 10], ['Up to 1000mb', 100, 20, 10]],
     }
   }
 }
