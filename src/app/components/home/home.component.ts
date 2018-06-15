@@ -120,11 +120,14 @@ export class HomeComponent implements OnInit {
     for (let i = 0; i < array.length; i++) {
       const element = array[i];
       element.classList.remove('active')
+      element.classList.remove('far-right-tv')
     }
     for (let i = 1; i <= numberOfTvs; i++) {
       const element = document.getElementById('tv' + i);
       element.classList.add('active')
     }
+    const element = document.getElementById('tv' + numberOfTvs);
+    element.classList.add('far-right-tv');
   }
 
   removeInternet(): void {

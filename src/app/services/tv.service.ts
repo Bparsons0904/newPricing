@@ -20,7 +20,7 @@ dtvnow: any;
       type: 'tv',
       maxTV: 8,
       perTVCost: 7,
-      packages: [['Select', 78, 38, false], ['Entertain', 90, 45, true], ['Choice', 105, 55, true], ['Xtra', 117, 57, true], ['Ultimate', 128, 63, true], ['Premier', 181, 66, true]],
+      packages: [['Select', 78, 38, false], ['Entertainment', 90, 45, true], ['Choice', 105, 55, true], ['Xtra', 117, 57, true], ['Ultimate', 128, 63, true], ['Premier', 181, 66, true]],
       discounts: [['Autopay', 5, 0],['Unlimited', 0, 15]],
     }
 

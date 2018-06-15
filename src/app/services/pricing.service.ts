@@ -72,6 +72,12 @@ export class PricingService {
     this.currentPackage.year1Pricing = this.currentPackage.tv.base + this.currentPackage.tv.costOfExtraTvs - this.currentPackage.tv.discount - this.currentPackage.year1Discount - this.currentPackage.internet.discount1Year + this.currentPackage.internet.base - this.currentPackage.internet.discountBundled;
 
     this.currentPackage.year2Pricing = this.currentPackage.tv.base + this.currentPackage.tv.costOfExtraTvs - this.currentPackage.year2Discount - this.currentPackage.internet.discountBundled + this.currentPackage.internet.base;
+    if (this.currentPackage.year1Pricing < 0) {
+      this.currentPackage.year1Pricing = 0;
+    }
+    if (this.currentPackage.year2Pricing < 0) {
+      this.currentPackage.year2Pricing = 0;
+    }
   }
 
   // getCurrentService(): Observable<object> {

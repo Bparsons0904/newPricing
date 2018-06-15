@@ -21,10 +21,7 @@
 .active {
     background-color: white;
     color: #00a6d6;
-    font-weight: bold;
-    border-style: solid;
-    border-color: white;
-    border-width: 5px;
+    border-style: none;
 }
 
 textarea:focus, input:focus {
@@ -33,4 +30,23 @@ textarea:focus, input:focus {
 
 *:focus {
     outline: none;
+}
+
+@media (min-width: 768px) {
+    .tab-group {
+        font-size: 1.5em;
+    }
+
+    .nav-tab {
+        padding-top: 10px;
+        font-size: 1.5em;
+    }
+
+    .tab-group {
+        height: 75px;
+    }
+
+    .active {
+        font-weight: 400;
+    }
 }
