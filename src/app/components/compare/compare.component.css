@@ -1,3 +1,57 @@
 .coming-soon {
     margin-top: 25%; 
 }
+
+.tab-group {
+    background-color: #00a6d6;
+    overflow: hidden;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    margin: 0px;
+    height: 50px;
+    color: white;
+    display: flex;
+}
+
+.nav-tab {
+    width: 19%;
+    padding-top: 13px;
+}
+
+#compare-select {
+    width: 24%;
+}
+
+.active {
+    background-color: white;
+    color: #00a6d6;
+    border-style: none;
+}
+
+textarea:focus, input:focus {
+    outline: none;
+}
+
+*:focus {
+    outline: none;
+}
+
+@media (min-width: 768px) {
+    .tab-group {
+        font-size: 1.5em;
+    }
+
+    .nav-tab {
+        padding-top: 10px;
+        font-size: 1.5em;
+    }
+
+    .tab-group {
+        height: 75px;
+    }
+
+    .active {
+        font-weight: 400;
+    }
+}

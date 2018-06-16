@@ -23,7 +23,7 @@ export class HomeComponent implements OnInit {
   maxTV: number[];
   
   constructor(
-    private pricingService: PricingService,
+    public pricingService: PricingService,
     // private tvService: TvService,
     // private discountsService: DiscountsService,
     // private internetService: InternetService,
@@ -171,7 +171,19 @@ export class HomeComponent implements OnInit {
   }
 
   clearBundle(): void {
-    this.pricingService.resetPackages();
+    console.log(this.currentService);
+    console.log(this.pricingService.currentPackage.tv.tvType);
+    if (this.pricingService.currentPackage.tv.tvType === "DirecTV" || this.pricingService.currentPackage.tv.tvType === "DirecTV Spanish") {
+      this.pricingService.setService('dtv-select');
+    } else if (this.pricingService.currentPackage.tv.tvType === "Uverse" || this.pricingService.currentPackage.tv.tvType === "Uverse Spanish") {
+      this.pricingService.setService('uvtv-select');
+    } else if (this.pricingService.currentPackage.tv.tvType === "DirecTV Now") {
+      this.pricingService.setService('now-select');
+    } else {
+      this.pricingService.setService('bb-select');
+    }
+
+    // this.pricingService.resetPackages();
     let element = document.getElementById('bundle');
     if (element) {
       element.classList.remove('active')
@@ -196,6 +208,16 @@ export class HomeComponent implements OnInit {
       const element = array[i];
       element.classList.remove('active')
     }
+  }
+
+  serviceSelect(event) {
+    this.pricingService.setService(event.path[0].id);
+    const array = document.querySelectorAll('.active-nav');
+    for (let i = 0; i < array.length; i++) {
+      const element = array[i];
+      element.classList.remove('active-nav')
+    }
+    event.target.classList.add('active-nav')
   }
 
   testButton() {

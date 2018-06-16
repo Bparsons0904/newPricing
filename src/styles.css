@@ -1,14 +1,2 @@
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
-/* @import url('https://fonts.googleapis.com/css?family=Sunflower:300'); */
-@import url('https://fonts.googleapis.com/css?family=Raleway');
-
-body {
-    /* background-color: #000000!important;
-    color: #ffffff!important; */
-}
-
-* {
-    /* font-family: 'Sunflower', sans-serif; */
-    /* font-family: 'Raleway', sans-serif;
-    font-weight: bold; */
-}
+@import  "node_modules/bootstrap/dist/css/bootstrap.min.css";

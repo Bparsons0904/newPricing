@@ -1,7 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { MatTabsModule } from '@angular/material/tabs';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
 import { PricingService } from '../../services/pricing.service';
 
 @Component({
@@ -26,6 +23,10 @@ export class NavBarComponent implements OnInit {
       element.classList.remove('active')
     }
     event.target.classList.add('active')
+  }
+
+  test() {
+    this.pricingService.resetPackages();
   }
 
 }

@@ -12,7 +12,7 @@ export class PricingService {
 
   initComplete: boolean = false;
 
-  private currentService = new BehaviorSubject<any>(null);
+  currentService = new BehaviorSubject<any>(null);
   castCurrentService = this.currentService.asObservable();
   
   internetPackages: object;
@@ -89,11 +89,12 @@ export class PricingService {
   }
 
   resetPackages(): void {
+    console.log("reset start", this.currentPackage.tv);
+    
     this.currentPackage = {
       name: 'currentPackage',
       tv: {
         selected: false,
-        tvType: '',
         package: '',
         spanish: false,
         numberofTVs: 1,
@@ -123,9 +124,14 @@ export class PricingService {
       discounts: [],
     }
     this.updatePrice();
+    console.log("reset end", this.currentPackage.tv);
   }
 
   setSpanishPackage(): void {
+     console.log("set spanish start", 
+      this.currentPackage.tv
+    );
+    
     this.currentPackage.tv.spanish = !this.currentPackage.tv.spanish;
     if (this.currentPackage.tv.spanish) {
       if (this.currentPackage.tv.tvType === 'DirecTV') {
@@ -143,6 +149,8 @@ export class PricingService {
   }
   
   setService(currentServiceName) {
+    console.log("setService start", currentServiceName);
+    
     switch (currentServiceName) {
       case 'dtv-select':
         this.resetPackages();

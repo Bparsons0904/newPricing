@@ -28,7 +28,7 @@
 }
 
 .pricing-tab {
-    padding: 10px;
+    padding: 5px;
     margin-left: 2.5px;
     margin-right: 2.5px;
     
@@ -40,37 +40,22 @@
     color: white;
 }
 
-.pricing {
-    /* margin-top: 10px;
-    margin-bottom: 10px; */
-}
-
 #regional {
     margin-bottom: 10px;
     background-color: #00a6d6;
     color: white;
-    /* padding-left: -15px;
-    padding-right: -15px; */
     height: 24px;
     border-style: none;
 }
 
 #control-selection {
-    margin-top: 7.5px;
-    margin-bottom: 7.5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 
-.control-tab {
-
-}
-
-#packages {
-    margin-top: 7.5px;
-}
-
-.packages-tab {
-
-}
+/* #packages {
+    margin-top: 5px;
+} */
 
 .packages {
     margin-top: 5px;
@@ -79,16 +64,14 @@
 }
 
 #tv-selection {
-    margin-top: 10px;
+    margin-top: 5px;
 }
 
 #tv {
-    /* margin-top: 5px;
-    margin-bottom: 5px; */
     border-style: groove;
     border-radius: 15px;
     display: flex;
-    margin-bottom: 7.5px;
+    margin-bottom: 5px;
 }
 
 .tv-tab {
@@ -99,29 +82,17 @@
 }
 
 #discounts-selection {
-    margin-top: 7.5px;
-    margin-bottom: 7.5px;
-}
-
-#discounts {
-
-}
-
-.discounts-tab {
-
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 
 #internet-selection {
-    margin-top: 7.5px;
+    margin-top: 5px;
 }
 
 #internet {
     margin-top: 5px;
     margin-bottom: 5px;
-}
-
-.internet-tab {
-
 }
 
 #bottom {
@@ -136,6 +107,61 @@
 .far-right-tv {
     border-bottom-right-radius: 10px;
     border-top-right-radius: 10px;
+}
+
+/* Bottom Nav Group */
+.tab-group {
+    background-color: #00a6d6;
+    overflow: hidden;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    margin: 0px;
+    height: 50px;
+    color: white;
+    display: flex;
+}
+
+.nav-tab {
+    width: 19%;
+    padding-top: 13px;
+}
+
+#compare-select {
+    width: 24%;
+}
+
+.active-nav {
+    background-color: white;
+    color: #00a6d6;
+    border-style: none;
+}
+
+textarea:focus, input:focus {
+    outline: none;
+}
+
+*:focus {
+    outline: none;
+}
+
+@media (min-width: 768px) {
+    .tab-group {
+        font-size: 1.5em;
+    }
+
+    .nav-tab {
+        padding-top: 10px;
+        font-size: 1.5em;
+    }
+
+    .tab-group {
+        height: 75px;
+    }
+
+    .active-nav {
+        font-weight: 400;
+    }
 }
 
 @media (min-width: 768px) { 
