@@ -171,6 +171,7 @@ export class HomeComponent implements OnInit {
 
   spanishSelect(): void {
     this.pricingService.setSpanishPackage();
+    this.removeInternet();
   }
 
   clearBundle(): void {
