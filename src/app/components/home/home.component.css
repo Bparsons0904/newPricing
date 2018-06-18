@@ -95,9 +95,9 @@
     margin-bottom: 5px;
 }
 
-#bottom {
+/* #bottom {
     margin: 100px;
-}
+} */
 
 #tv1 {
     border-bottom-left-radius: 10px;
@@ -107,61 +107,6 @@
 .far-right-tv {
     border-bottom-right-radius: 10px;
     border-top-right-radius: 10px;
-}
-
-/* Bottom Nav Group */
-.tab-group {
-    background-color: #00a6d6;
-    overflow: hidden;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    margin: 0px;
-    height: 50px;
-    color: white;
-    display: flex;
-}
-
-.nav-tab {
-    width: 19%;
-    padding-top: 13px;
-}
-
-#compare-select {
-    width: 24%;
-}
-
-.active-nav {
-    background-color: white;
-    color: #00a6d6;
-    border-style: none;
-}
-
-textarea:focus, input:focus {
-    outline: none;
-}
-
-*:focus {
-    outline: none;
-}
-
-@media (min-width: 768px) {
-    .tab-group {
-        font-size: 1.5em;
-    }
-
-    .nav-tab {
-        padding-top: 10px;
-        font-size: 1.5em;
-    }
-
-    .tab-group {
-        height: 75px;
-    }
-
-    .active-nav {
-        font-weight: 400;
-    }
 }
 
 @media (min-width: 768px) { 

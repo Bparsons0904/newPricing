@@ -49,7 +49,7 @@
   </div>
 </div>
 
-<div id="tv-selection" class="row">
+<div id="tv-selection" class="row" *ngIf="activeServiceName != 'Broadband Internet'">
   <div id="tv" class="mx-auto">
     <div class="" *ngFor="let tv of maxTV">
       <div (click)=selectNumberOfTvs(tv) id="tv{{ tv }}" class="tv-tab text-center">{{ tv }}</div>
@@ -89,19 +89,6 @@
     </div>
   </div>
 </div>
-
-<div class="row">
-  <nav class="tab-group">
-    <div (click)="serviceSelect($event)" routerLink="/" id="dtv-select" class="nav-tab text-center active">DTV</div>
-    <div (click)="serviceSelect($event)" routerLink="/" id="uvtv-select" class="nav-tab text-center">UVTV</div>
-    <div (click)="serviceSelect($event)" routerLink="/" id="now-select" class="nav-tab text-center">NOW</div>
-    <div (click)="serviceSelect($event)" routerLink="/" id="bb-select" class="nav-tab text-center">BB</div>
-    <div routerLink="/compare" id="compare-select" class="nav-tab text-center">Compare</div>
-  </nav>
-</div>
-
-
-<div id="bottom">v .9</div>
   
   <!-- <button id="test" (click)=testButton()>Test button</button> -->
   <!-- <div class="jeffjiv">

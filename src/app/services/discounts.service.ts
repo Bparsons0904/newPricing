@@ -10,7 +10,7 @@ export class DiscountsService {
   constructor() {
     this.discounts = [
       ['Autopay', 5, 0],
-      ['Unlimited', 0, 15]
+      ['Unlimited', 15, 15]
     ]
   }
 }

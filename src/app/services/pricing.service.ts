@@ -89,8 +89,6 @@ export class PricingService {
   }
 
   resetPackages(): void {
-    console.log("reset start", this.currentPackage.tv);
-    
     this.currentPackage = {
       name: 'currentPackage',
       tv: {
@@ -124,14 +122,9 @@ export class PricingService {
       discounts: [],
     }
     this.updatePrice();
-    console.log("reset end", this.currentPackage.tv);
   }
 
-  setSpanishPackage(): void {
-     console.log("set spanish start", 
-      this.currentPackage.tv
-    );
-    
+  setSpanishPackage(): void {    
     this.currentPackage.tv.spanish = !this.currentPackage.tv.spanish;
     if (this.currentPackage.tv.spanish) {
       if (this.currentPackage.tv.tvType === 'DirecTV') {
@@ -149,8 +142,6 @@ export class PricingService {
   }
   
   setService(currentServiceName) {
-    console.log("setService start", currentServiceName);
-    
     switch (currentServiceName) {
       case 'dtv-select':
         this.resetPackages();
@@ -215,17 +206,11 @@ export class PricingService {
       this.currentPackage.discounts.push(discount[0]);
       this.currentPackage.year1Discount += discount[1];
       this.currentPackage.year2Discount += discount[2];
-      if (activeServiceType == 'stream') {
-        this.currentPackage.year1Discount += discount[2];
-      }
       status = true;
     } else {
       this.currentPackage.discounts.splice(index, 1);
       this.currentPackage.year1Discount -= discount[1];
       this.currentPackage.year2Discount -= discount[2];
-      if (activeServiceType == 'stream') {
-        this.currentPackage.year1Discount -= discount[2];
-      }
     }
     this.updatePrice();
     return status

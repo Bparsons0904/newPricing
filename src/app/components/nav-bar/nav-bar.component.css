@@ -1,3 +1,7 @@
+#nav-bar {
+    margin-top: 50px;
+}
+
 .tab-group {
     background-color: #00a6d6;
     overflow: hidden;
@@ -7,6 +11,7 @@
     margin: 0px;
     height: 50px;
     color: white;
+    display: flex;
 }
 
 .nav-tab {
@@ -33,6 +38,9 @@ textarea:focus, input:focus {
 }
 
 @media (min-width: 768px) {
+    #nav-bar {
+        margin-top: 100px;
+    }
     .tab-group {
         font-size: 1.5em;
     }
@@ -44,6 +52,7 @@ textarea:focus, input:focus {
 
     .tab-group {
         height: 75px;
+        max-width: 1000px;
     }
 
     .active {

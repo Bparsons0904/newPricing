@@ -21,7 +21,7 @@ dtvnow: any;
       maxTV: 8,
       perTVCost: 7,
       packages: [['Select', 78, 38, false], ['Entertainment', 90, 45, true], ['Choice', 105, 55, true], ['Xtra', 117, 57, true], ['Ultimate', 128, 63, true], ['Premier', 181, 66, true]],
-      discounts: [['Autopay', 5, 0],['Unlimited', 0, 15]],
+      discounts: [['Autopay', 5, 0],['Unlimited', 15, 15]],
     }
 
     this.directvSpanish = {
@@ -30,7 +30,7 @@ dtvnow: any;
       maxTV: 8,
       perTVCost: 7,
       packages: [['Mas Latino', 63, 3, false], ['Optimo Mas', 83, 43, true], ['Mas Ultra', 109, 59, true], ['Lo Maximo', 181, 75, true]],
-      discounts: [['Autopay', 5, 0],['Unlimited', 0, 15]],
+      discounts: [['Autopay', 5, 0],['Unlimited', 15, 15]],
     }
 
     this.uverse = {
@@ -39,7 +39,7 @@ dtvnow: any;
       maxTV: 8,
       perTVCost: 10,
       packages: [['U-Family', 81, 41, false], ['U200', 102, 42, true], ['U300', 119, 54, true], ['U450', 147, 32, true]],
-      discounts: [['Autopay', 5, 0],['Unlimited', 0, 15]],
+      discounts: [['Autopay', 5, 0],['Unlimited', 15, 15]],
     }
 
     this.uverseSpanish = {
@@ -48,7 +48,7 @@ dtvnow: any;
       maxTV: 8,
       perTVCost: 10,
       packages: [ ['U200', 112, 42, true], ['U300', 129, 54, true], ['U450', 154, 32, true]],
-      discounts: [['Autopay', 5, 0],['Unlimited', 0, 15]],
+      discounts: [['Autopay', 5, 0],['Unlimited', 15, 15]],
     }
 
     this.dtvnow = {
@@ -57,7 +57,7 @@ dtvnow: any;
       maxTV: 3,
       perTVCost: 5,
       packages: [['Live a Little', 35, 0], ['Just Right', 50, 0], ['Go Big', 60, 0], ['Gotta Have It', 70, 0]],
-      discounts: [['Unlimited', 0, 15]],
+      discounts: [['Unlimited', 15, 15]],
     }
 
   }

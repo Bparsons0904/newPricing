@@ -136,15 +136,25 @@ export class HomeComponent implements OnInit {
   }
 
   selectInternet(internetPackage): void {
-    this.pricingService.setInternetPackage(internetPackage);
-    const array = document.querySelectorAll('.internet-tab');
-    for (let i = 0; i < array.length; i++) {
-      const element = array[i];
-      element.classList.remove('active')
-    }
-    if (internetPackage[1] > 0) {
-      const element = document.getElementById(internetPackage[0]);
-      element.classList.add('active')
+    let selection = document.getElementById(internetPackage[0]);
+    if (selection !== null && selection.className === 'internet-tab button text-center active') {
+      const array = document.querySelectorAll('.internet-tab');
+      for (let i = 0; i < array.length; i++) {
+        const element = array[i];
+        element.classList.remove('active')
+      }
+      this.pricingService.currentPackage.internet.selected = !this.pricingService.currentPackage.internet.selected;
+    } else {
+      this.pricingService.setInternetPackage(internetPackage);
+      const array = document.querySelectorAll('.internet-tab');
+      for (let i = 0; i < array.length; i++) {
+        const element = array[i];
+        element.classList.remove('active')
+      }
+      if (internetPackage[1] > 0) {
+        const element = document.getElementById(internetPackage[0]);
+        element.classList.add('active')
+      }
     }
   }
 
@@ -160,19 +170,10 @@ export class HomeComponent implements OnInit {
   }
 
   spanishSelect(): void {
-    // this.pricingService.currentPackage.tv.spanish = !this.pricingService.currentPackage.tv.spanish;
-    // const element = document.getElementById('spanish');
-    // if (this.pricingService.currentPackage.tv.spanish) {
-    //   element.classList.add('active')
-    // } else {
-    //   element.classList.remove('active')
-    // }
     this.pricingService.setSpanishPackage();
   }
 
   clearBundle(): void {
-    console.log(this.currentService);
-    console.log(this.pricingService.currentPackage.tv.tvType);
     if (this.pricingService.currentPackage.tv.tvType === "DirecTV" || this.pricingService.currentPackage.tv.tvType === "DirecTV Spanish") {
       this.pricingService.setService('dtv-select');
     } else if (this.pricingService.currentPackage.tv.tvType === "Uverse" || this.pricingService.currentPackage.tv.tvType === "Uverse Spanish") {
@@ -208,16 +209,6 @@ export class HomeComponent implements OnInit {
       const element = array[i];
       element.classList.remove('active')
     }
-  }
-
-  serviceSelect(event) {
-    this.pricingService.setService(event.path[0].id);
-    const array = document.querySelectorAll('.active-nav');
-    for (let i = 0; i < array.length; i++) {
-      const element = array[i];
-      element.classList.remove('active-nav')
-    }
-    event.target.classList.add('active-nav')
   }
 
   testButton() {
