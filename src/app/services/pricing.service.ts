@@ -43,6 +43,8 @@ export class PricingService {
         base: 0,
         discount: 0,
         regional: false,
+        addOns: [],
+        addOnsCost: 0,
       },
       internet: {
         selected: false,
@@ -69,9 +71,9 @@ export class PricingService {
   }
 
   updatePrice() {
-    this.currentPackage.year1Pricing = this.currentPackage.tv.base + this.currentPackage.tv.costOfExtraTvs - this.currentPackage.tv.discount - this.currentPackage.year1Discount - this.currentPackage.internet.discount1Year + this.currentPackage.internet.base - this.currentPackage.internet.discountBundled;
+    this.currentPackage.year1Pricing = this.currentPackage.tv.base + this.currentPackage.tv.costOfExtraTvs - this.currentPackage.tv.discount - this.currentPackage.year1Discount - this.currentPackage.internet.discount1Year + this.currentPackage.internet.base - this.currentPackage.internet.discountBundled + this.currentPackage.tv.addOnsCost;
 
-    this.currentPackage.year2Pricing = this.currentPackage.tv.base + this.currentPackage.tv.costOfExtraTvs - this.currentPackage.year2Discount - this.currentPackage.internet.discountBundled + this.currentPackage.internet.base;
+    this.currentPackage.year2Pricing = this.currentPackage.tv.base + this.currentPackage.tv.costOfExtraTvs - this.currentPackage.year2Discount - this.currentPackage.internet.discountBundled + this.currentPackage.internet.base + this.currentPackage.tv.addOnsCost;
     if (this.currentPackage.year1Pricing < 0) {
       this.currentPackage.year1Pricing = 0;
     }
@@ -100,6 +102,8 @@ export class PricingService {
         base: 0,
         discount: 0,
         regional: false,
+        addOns: [],
+        addOnsCost: 0,
       },
       internet: {
         selected: false,
@@ -197,6 +201,21 @@ export class PricingService {
       this.currentPackage.internet.discount1Year += 10;
       this.updatePrice();
     }
+  }
+
+  setAddOns(addOn, activeServiceType): boolean {
+    const index: number = this.currentPackage.tv.addOns.indexOf(addOn[0]);
+    let status: boolean = false;
+    if (index === -1) {
+      this.currentPackage.tv.addOns.push(addOn[0]);
+      this.currentPackage.tv.addOnsCost += addOn[1];
+      status = true;
+    } else {
+      this.currentPackage.tv.addOns.splice(index, 1);
+      this.currentPackage.tv.addOnsCost -= addOn[1];
+    }
+    this.updatePrice();
+    return status
   }
 
   setDiscountTV(discount, activeServiceType): boolean {

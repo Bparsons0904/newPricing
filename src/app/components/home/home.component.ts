@@ -88,7 +88,16 @@ export class HomeComponent implements OnInit {
     } else {
       element.classList.remove('active');
     }
-    
+  }
+
+  selectAddOn(addOn): void {
+    const status = this.pricingService.setAddOns(addOn, this.activeServiceType);
+    const element = document.getElementById(addOn[0]);
+    if (status) {
+      element.classList.add('active');
+    } else {
+      element.classList.remove('active');
+    }
   }
 
   selectPackage(selectedPackage): void {
@@ -199,6 +208,7 @@ export class HomeComponent implements OnInit {
     for (let i = 0; i < array.length; i++) {
       const element = array[i];
       element.classList.remove('active')
+      element.classList.remove('far-right-tv')
     }
     array = document.querySelectorAll('.packages-tab');
     for (let i = 0; i < array.length; i++) {
@@ -206,6 +216,11 @@ export class HomeComponent implements OnInit {
       element.classList.remove('active')
     }
     array = document.querySelectorAll('.discounts-tab');
+    for (let i = 0; i < array.length; i++) {
+      const element = array[i];
+      element.classList.remove('active')
+    }
+    array = document.querySelectorAll('.addOns-tab');
     for (let i = 0; i < array.length; i++) {
       const element = array[i];
       element.classList.remove('active')

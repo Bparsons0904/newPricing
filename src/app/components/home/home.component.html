@@ -55,14 +55,30 @@
       <div (click)=selectNumberOfTvs(tv) id="tv{{ tv }}" class="tv-tab text-center">{{ tv }}</div>
     </div>
   </div>
-</div>  
+</div> 
+
+<mat-divider></mat-divider>
+
+<div id="addOns-selection" *ngIf="activeServiceType === 'stream'">
+  <div class="row">
+    <div class="text-center mx-auto">
+      <h5 id="addOns-header">Available Bolt-Ons</h5>
+    </div>
+  </div>
+  <div class="row">
+    <div *ngFor="let addOn of currentService.addOns" id="addOns" class="packages mx-auto">
+      <div (click)=selectAddOn(addOn) id="{{ addOn[0] }}" class="addOns-tab button text-center">{{ addOn[0] }}</div>
+      <!-- <button (click)=selectDiscount(discount) [ngClass]="{'active': discount[3]==true}">{{ discount[0] }}</button> -->
+    </div>
+  </div>
+</div>
 
 <mat-divider></mat-divider>
 
 <div id="discounts-selection" *ngIf="activeServiceType !== 'internet'">
   <div class="row">
     <div class="text-center mx-auto">
-      <h5 id="include-internet">Available Discounts</h5>
+      <h5 id="discounts-header">Available Discounts</h5>
     </div>
   </div>
   <div class="row">
@@ -71,7 +87,6 @@
     <!-- <button (click)=selectDiscount(discount) [ngClass]="{'active': discount[3]==true}">{{ discount[0] }}</button> -->
     </div>
   </div>
-  
 </div>
 
 <mat-divider *ngIf="activeServiceType !== 'internet'"></mat-divider>
@@ -79,7 +94,7 @@
 <div *ngIf="activeServiceType == 'tv' || activeServiceType == 'stream'" id="internet-selection">
   <div class="row">
     <div class="text-center mx-auto">
-      <h5 *ngIf="!pricingService.currentPackage.internet.selected" id="include-internet">Inlcude Internet</h5>
+      <h5 *ngIf="!pricingService.currentPackage.internet.selected" id="include-internet">Include Internet</h5>
       <h5 *ngIf="pricingService.currentPackage.internet.selected" (click)="removeInternet()" id="clear-internet">Remove Internet</h5>
     </div>
   </div>

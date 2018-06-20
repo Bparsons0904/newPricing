@@ -56,8 +56,9 @@ dtvnow: any;
       type: 'stream',
       maxTV: 3,
       perTVCost: 5,
-      packages: [['Live a Little', 35, 0], ['Just Right', 50, 0], ['Go Big', 60, 0], ['Gotta Have It', 70, 0]],
+      packages: [['Live a Little', 35, 0], ['Just Right', 50, 0], ['Go Big', 60, 0], ['Gotta Have It', 70, 0], ['Todo Y Mas', 45, 0]],
       discounts: [['Unlimited', 15, 15]],
+      addOns: [['HBO', 5], ['Cinemax', 5], ['Starz', 8], ['Showtime', 8], ['Espanol', 10], ['Deportes', 5],]
     }
 
   }

@@ -10,6 +10,8 @@ export interface Package {
         base?: number;
         discount?: number;
         regional?: boolean;
+        addOns?: any[];
+        addOnsCost;
     };
     internet?: {
         selected?: boolean;
