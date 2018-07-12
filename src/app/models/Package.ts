@@ -11,7 +11,10 @@ export interface Package {
         discount?: number;
         regional?: boolean;
         addOns?: any[];
-        addOnsCost;
+        freeAddon?: any[];
+        freeAddons?: any[];
+        addOnsInfo?: any[];
+        addOnsCost?: number;
     };
     internet?: {
         selected?: boolean;
@@ -27,6 +30,7 @@ export interface Package {
         base?: number;
         discount?: number;
     };
+    freeServiceEligible?: boolean;
     year1Pricing?: number;
     year2Pricing?: number;
     year1Discount?: number;

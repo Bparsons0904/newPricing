@@ -10,6 +10,7 @@ directvSpanish: any;
 uverse: any;
 uverseSpanish: any;
 dtvnow: any;
+freeAddOns: any[];
 
   constructor() {
     // Packages = [<name>, <base-price>, <1styear-discount>]
@@ -60,6 +61,8 @@ dtvnow: any;
       discounts: [['Unlimited', 15, 15]],
       addOns: [['HBO', 5], ['Cinemax', 5], ['Starz', 8], ['Showtime', 8], ['Espanol', 10], ['Deportes', 5],]
     }
+
+    this.freeAddOns = [['HBO', 'HBO-free'], ['Cinemax', 'Cinemax-free'], ['Starz', 'Starz-free'], ['Showtime', 'Showtime-free'], ['VRV', 'VRV-free'], ['Amazon Music', 'Amazon-free'], ['Pandora Premium', 'Amazon-free'], ];
 
   }
 }

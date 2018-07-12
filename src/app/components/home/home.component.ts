@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Package } from '../../models/Package';
 
 import { PricingService } from '../../services/pricing.service';
+import { ClassField } from '@angular/compiler';
 // import { TvService } from '../../services/tv.service';
 // import { DiscountsService } from '../../services/discounts.service';
 // import { InternetService } from '../../services/internet.service';
@@ -183,6 +184,36 @@ export class HomeComponent implements OnInit {
     this.removeInternet();
   }
 
+  freeAddOn(addOn): void {
+    console.log(this.pricingService.currentPackage.tv.freeAddon);
+    
+    const array = document.querySelectorAll('.free-addon-tab');
+    for (let i = 0; i < array.length; i++) {
+      const element = array[i];
+      element.classList.remove('active')
+    }
+    const element = document.getElementById(addOn[1]);
+    if (this.pricingService.currentPackage.tv.freeAddon.indexOf(addOn) === -1) {
+      element.classList.add('active');
+      this.pricingService.addFreeAddOn(addOn);
+      if (this.pricingService.currentPackage.tv.addOns.indexOf(addOn[0]) === -1) {
+        this.pricingService.currentPackage.tv.addOnsInfo.forEach(element => {
+          if (element[0] === addOn[0]) {
+            this.selectAddOn(element);
+          }
+        });
+      }
+    } else {
+      element.classList.remove('active');
+      this.pricingService.removeFreeAddOn(addOn);
+      this.pricingService.currentPackage.tv.addOnsInfo.forEach(element => {
+        if (element[0] === addOn[0]) {
+          this.selectAddOn(element);
+        }
+      });
+    }
+  }
+
   clearBundle(): void {
     if (this.pricingService.currentPackage.tv.tvType === "DirecTV" || this.pricingService.currentPackage.tv.tvType === "DirecTV Spanish") {
       this.pricingService.setService('dtv-select');
@@ -221,6 +252,11 @@ export class HomeComponent implements OnInit {
       element.classList.remove('active')
     }
     array = document.querySelectorAll('.addOns-tab');
+    for (let i = 0; i < array.length; i++) {
+      const element = array[i];
+      element.classList.remove('active')
+    }
+    array = document.querySelectorAll('.free-addon-tab');
     for (let i = 0; i < array.length; i++) {
       const element = array[i];
       element.classList.remove('active')

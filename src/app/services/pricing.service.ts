@@ -4,6 +4,7 @@ import { InternetService } from './internet.service';
 // import { Observable, of } from 'rxjs';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { Package } from '../models/Package';
+import { element } from 'protractor';
 
 @Injectable({
   providedIn: 'root'
@@ -43,7 +44,10 @@ export class PricingService {
         base: 0,
         discount: 0,
         regional: false,
+        freeAddon: [],
+        freeAddons: [],
         addOns: [],
+        addOnsInfo: [],
         addOnsCost: 0,
       },
       internet: {
@@ -103,7 +107,10 @@ export class PricingService {
         discount: 0,
         regional: false,
         addOns: [],
+        addOnsInfo: [],
         addOnsCost: 0,
+        freeAddon: [],
+        freeAddons: [],
       },
       internet: {
         selected: false,
@@ -119,6 +126,7 @@ export class PricingService {
         base: 0,
         discount: 0,
       },
+      freeServiceEligible: false,
       year1Pricing: 0,
       year2Pricing: 0,
       year1Discount: 0,
@@ -183,6 +191,8 @@ export class PricingService {
         this.currentPackage.tv.tvType = this.tvService.dtvnow.name;
         this.perTVCost = this.tvService.dtvnow.perTVCost;
         this.currentPackage.internet.bundled = false;
+        this.currentPackage.tv.freeAddons = this.tvService.freeAddOns;
+        this.currentPackage.tv.addOnsInfo = this.tvService.dtvnow.addOns;
         break;
       default:
         this.resetPackages();
@@ -200,6 +210,41 @@ export class PricingService {
       this.currentPackage.internet.discountBundled -= 20;
       this.currentPackage.internet.discount1Year += 10;
       this.updatePrice();
+    }
+  }
+
+  // freeAddOn(addOn): boolean {
+  //   if (this.currentPackage.tv.freeAddon.indexOf(addOn) === -1) {
+  //     return true;
+  //   } else {
+  //     return false;
+  //   }
+  // }
+
+  addFreeAddOn(addOn): void {
+    this.currentPackage.tv.freeAddon = [];
+    this.currentPackage.tv.freeAddon.push(addOn);
+    if (this.currentPackage.tv.addOns.indexOf(addOn[0]) !== -1) {
+      this.currentPackage.tv.addOnsInfo.forEach(element => {
+        if (element[0] === addOn[0]) {
+          this.currentPackage.year1Discount += element[1];
+          this.currentPackage.year2Discount += element[1];
+          this.updatePrice();
+        }
+      });
+    }
+  }
+
+  removeFreeAddOn(addOn): void {
+    this.currentPackage.tv.freeAddon = [];
+    if (this.currentPackage.tv.addOns.indexOf(addOn[0]) !== -1) {
+      this.currentPackage.tv.addOnsInfo.forEach(element => {
+        if (element[0] === addOn[0]) {
+          this.currentPackage.year1Discount -= element[1];
+          this.currentPackage.year2Discount -= element[1];
+          this.updatePrice();
+        }
+      });
     }
   }
 
@@ -225,11 +270,17 @@ export class PricingService {
       this.currentPackage.discounts.push(discount[0]);
       this.currentPackage.year1Discount += discount[1];
       this.currentPackage.year2Discount += discount[2];
+      if (discount[0] === "Unlimited") {
+        this.currentPackage.freeServiceEligible = true;
+      }
       status = true;
     } else {
       this.currentPackage.discounts.splice(index, 1);
       this.currentPackage.year1Discount -= discount[1];
       this.currentPackage.year2Discount -= discount[2];
+      if (discount[0] === "Unlimited") {
+        this.currentPackage.freeServiceEligible = false;
+      }
     }
     this.updatePrice();
     return status

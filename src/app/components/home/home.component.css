@@ -4,6 +4,10 @@
     color: white;
 }
 
+.addon-active {
+    background-color: red!important;
+}
+
 #test {
     margin-top: 15px;
 }
@@ -89,6 +93,14 @@
 #discounts-selection {
     margin-top: 5px;
     margin-bottom: 5px;
+}
+
+#free-service-header {
+    color: #00a6d6;
+}
+
+.free-addon-tab {
+    margin-top: 5px;
 }
 
 #internet-selection {
