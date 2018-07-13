@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { PricingService } from '../../services/pricing.service';
 
 @Component({
   selector: 'app-compare',
@@ -7,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CompareComponent implements OnInit {
 
-  constructor() { }
+  packages: object[] = [];
+
+  constructor(
+    public pricingService: PricingService,
+  ) { }
 
   ngOnInit() {
+    this.packages = this.pricingService.packages;
   }
 
 }

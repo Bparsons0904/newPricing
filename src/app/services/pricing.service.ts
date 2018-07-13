@@ -17,16 +17,10 @@ export class PricingService {
   castCurrentService = this.currentService.asObservable();
   
   internetPackages: object;
-  // service: string;
-  // base: number = 0;
-  // discountYear1: number = 0;
-  // discountYear2: number = 0;
-  // discountTV: number = 0;
-  // discountInternetYear1: number = 0;
-  // discountInternetYear2: number = 0;
-
   currentPackage: Package;
   perTVCost: number;
+
+  packages: object[] = [];
 
   constructor(
     private tvService: TvService,
@@ -92,6 +86,14 @@ export class PricingService {
 
   setInit(): void {
     this.initComplete = true;
+  }
+
+  testService() {
+    console.log("Test Service Ran");
+    console.log(this.currentPackage);
+    
+    this.packages.push(this.currentPackage)
+    
   }
 
   resetPackages(): void {
@@ -221,12 +223,15 @@ export class PricingService {
   //   }
   // }
 
-  addFreeAddOn(addOn): void {
+  addFreeAddOn(freeAddOn): void {
     this.currentPackage.tv.freeAddon = [];
-    this.currentPackage.tv.freeAddon.push(addOn);
-    if (this.currentPackage.tv.addOns.indexOf(addOn[0]) !== -1) {
+    this.currentPackage.tv.freeAddon = freeAddOn;
+    
+    if (this.currentPackage.tv.addOns.indexOf(freeAddOn[0]) !== -1) {
       this.currentPackage.tv.addOnsInfo.forEach(element => {
-        if (element[0] === addOn[0]) {
+        if (element[0] === freeAddOn[0]) {
+          console.log("Add if ran");
+          
           this.currentPackage.year1Discount += element[1];
           this.currentPackage.year2Discount += element[1];
           this.updatePrice();
@@ -235,16 +240,20 @@ export class PricingService {
     }
   }
 
-  removeFreeAddOn(addOn): void {
+  removeFreeAddOn(freeAddOn: any[], addOn?: any[]): void {
     this.currentPackage.tv.freeAddon = [];
-    if (this.currentPackage.tv.addOns.indexOf(addOn[0]) !== -1) {
+    if (this.currentPackage.tv.addOns.indexOf(freeAddOn[0]) !== -1) {
       this.currentPackage.tv.addOnsInfo.forEach(element => {
-        if (element[0] === addOn[0]) {
+        if (element[0] === freeAddOn[0]) {
           this.currentPackage.year1Discount -= element[1];
           this.currentPackage.year2Discount -= element[1];
           this.updatePrice();
         }
       });
+    } else if (addOn) {
+      this.currentPackage.year1Discount -= addOn[1];
+      this.currentPackage.year2Discount -= addOn[1];
+      this.updatePrice();
     }
   }
 

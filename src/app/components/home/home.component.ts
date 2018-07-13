@@ -1,11 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Package } from '../../models/Package';
-
 import { PricingService } from '../../services/pricing.service';
-import { ClassField } from '@angular/compiler';
-// import { TvService } from '../../services/tv.service';
-// import { DiscountsService } from '../../services/discounts.service';
-// import { InternetService } from '../../services/internet.service';
 
 @Component({
   selector: 'app-home',
@@ -17,47 +11,12 @@ export class HomeComponent implements OnInit {
   currentService: object;
   activeServiceType: string;
   activeServiceName: string;
-  package1: Package;
-  package2: Package;
-  package3: Package;
 
   maxTV: number[];
   
   constructor(
     public pricingService: PricingService,
-    // private tvService: TvService,
-    // private discountsService: DiscountsService,
-    // private internetService: InternetService,
-  ) {
-    // this.package1 = {
-    //   name: "test1",
-    //   tv: {
-    //     selected: true,
-    //     tvType: 'DirecTV',
-    //     package: 'Choice',
-    //     base: 50,
-    //     discount: 25,
-    //   }
-    // }
-    // this.tempPackage = {
-    //   name: "Temp Package",
-    //   tv: {
-    //     selected: false,
-    //     tvType: '',
-    //     package: '',
-    //     base: 0,
-    //     discount: 0,
-    //   },
-    //   discounts: [],
-    //   year1Pricing: 0,
-    //   year2Pricing: 0,
-    // }
-
-
-
-    // this.directv = this.tvService.directv;
-    // this.uverse = this.tvService.uverse;
-  }
+  ) {}
 
   ngOnInit() {
     if (!this.pricingService.initComplete) {
@@ -72,13 +31,7 @@ export class HomeComponent implements OnInit {
       for (let i = 1; i <= currentService.maxTV; i++) {
         this.maxTV.push(i);
       }
-    });
-
-    
-  }
-
-  update() {
-
+    });  
   }
 
   selectDiscount(discount): void {
@@ -88,16 +41,16 @@ export class HomeComponent implements OnInit {
       element.classList.add('active');
     } else {
       element.classList.remove('active');
-    }
-  }
-
-  selectAddOn(addOn): void {
-    const status = this.pricingService.setAddOns(addOn, this.activeServiceType);
-    const element = document.getElementById(addOn[0]);
-    if (status) {
-      element.classList.add('active');
-    } else {
-      element.classList.remove('active');
+      const freeAddOn = this.pricingService.currentPackage.tv.freeAddon;
+      if (element.id === "Unlimited" && freeAddOn) {
+        if (this.pricingService.currentPackage.tv.addOns.indexOf(freeAddOn[0]) !== -1) {
+          this.pricingService.currentPackage.tv.addOnsInfo.forEach(element => {
+            if (element[0] === freeAddOn[0]) {
+              this.pricingService.removeFreeAddOn(freeAddOn, element)
+            }
+          });
+        } 
+      }
     }
   }
 
@@ -184,8 +137,36 @@ export class HomeComponent implements OnInit {
     this.removeInternet();
   }
 
+  selectAddOn(addOn): void {
+    const status = this.pricingService.setAddOns(addOn, this.activeServiceType);
+    const element = document.getElementById(addOn[0]);
+    if (status) {
+      element.classList.add('active');
+    } else {
+      element.classList.remove('active');
+      this.checkfreeAddOn(addOn);
+    }
+  }
+
+  checkfreeAddOn(addOn): void {
+    console.log(addOn);
+    console.log(this.pricingService.currentPackage.tv.freeAddon[0]);
+    const freeAddOn = this.pricingService.currentPackage.tv.freeAddon;
+    if (addOn[0] === freeAddOn[0]) {
+      this.removeFreeAddOn(freeAddOn, addOn);
+    }
+
+  }
+
+  removeFreeAddOn(freeAddOn, addOn) {
+    console.log(addOn, freeAddOn);
+    const element = document.getElementById(freeAddOn[1]);
+    element.classList.remove('active');
+    this.pricingService.removeFreeAddOn(freeAddOn, addOn);
+  }
+
   freeAddOn(addOn): void {
-    console.log(this.pricingService.currentPackage.tv.freeAddon);
+    console.log(addOn);
     
     const array = document.querySelectorAll('.free-addon-tab');
     for (let i = 0; i < array.length; i++) {
@@ -193,24 +174,28 @@ export class HomeComponent implements OnInit {
       element.classList.remove('active')
     }
     const element = document.getElementById(addOn[1]);
-    if (this.pricingService.currentPackage.tv.freeAddon.indexOf(addOn) === -1) {
+    if (this.pricingService.currentPackage.tv.freeAddon !== addOn) {
       element.classList.add('active');
-      this.pricingService.addFreeAddOn(addOn);
+      
       if (this.pricingService.currentPackage.tv.addOns.indexOf(addOn[0]) === -1) {
-        this.pricingService.currentPackage.tv.addOnsInfo.forEach(element => {
-          if (element[0] === addOn[0]) {
-            this.selectAddOn(element);
+        this.pricingService.currentPackage.tv.addOnsInfo.forEach(activeAddOn => {
+          if (activeAddOn[0] === addOn[0]) {
+            console.log("SelectAddon Ran");
+            
+            this.selectAddOn(activeAddOn);
           }
         });
       }
+      this.pricingService.addFreeAddOn(addOn);
     } else {
       element.classList.remove('active');
+      
+      // this.pricingService.currentPackage.tv.addOnsInfo.forEach(activeAddOn => {
+      //   if (activeAddOn[0] === addOn[0]) {
+      //     this.selectAddOn(activeAddOn);
+      //   }
+      // });
       this.pricingService.removeFreeAddOn(addOn);
-      this.pricingService.currentPackage.tv.addOnsInfo.forEach(element => {
-        if (element[0] === addOn[0]) {
-          this.selectAddOn(element);
-        }
-      });
     }
   }
 
@@ -265,9 +250,7 @@ export class HomeComponent implements OnInit {
 
   testButton() {
     console.log("Test Button");
-    console.log(this.pricingService.currentPackage.internet.bundled);
-    // console.log(this.pricingService.currentPackage.discounts);
-    // this.setDiscountActive();
+    this.pricingService.testService();
   }
 
 }
