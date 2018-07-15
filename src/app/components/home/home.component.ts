@@ -149,8 +149,6 @@ export class HomeComponent implements OnInit {
   }
 
   checkfreeAddOn(addOn): void {
-    console.log(addOn);
-    console.log(this.pricingService.currentPackage.tv.freeAddon[0]);
     const freeAddOn = this.pricingService.currentPackage.tv.freeAddon;
     if (addOn[0] === freeAddOn[0]) {
       this.removeFreeAddOn(freeAddOn, addOn);
@@ -159,15 +157,12 @@ export class HomeComponent implements OnInit {
   }
 
   removeFreeAddOn(freeAddOn, addOn) {
-    console.log(addOn, freeAddOn);
     const element = document.getElementById(freeAddOn[1]);
     element.classList.remove('active');
     this.pricingService.removeFreeAddOn(freeAddOn, addOn);
   }
 
   freeAddOn(addOn): void {
-    console.log(addOn);
-    
     const array = document.querySelectorAll('.free-addon-tab');
     for (let i = 0; i < array.length; i++) {
       const element = array[i];
@@ -180,8 +175,6 @@ export class HomeComponent implements OnInit {
       if (this.pricingService.currentPackage.tv.addOns.indexOf(addOn[0]) === -1) {
         this.pricingService.currentPackage.tv.addOnsInfo.forEach(activeAddOn => {
           if (activeAddOn[0] === addOn[0]) {
-            console.log("SelectAddon Ran");
-            
             this.selectAddOn(activeAddOn);
           }
         });
@@ -249,7 +242,6 @@ export class HomeComponent implements OnInit {
   }
 
   testButton() {
-    console.log("Test Button");
     this.pricingService.testService();
   }
 

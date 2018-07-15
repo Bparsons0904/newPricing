@@ -16,11 +16,11 @@ export class PricingService {
   currentService = new BehaviorSubject<any>(null);
   castCurrentService = this.currentService.asObservable();
   
-  internetPackages: object;
+  internetPackages: Object;
   currentPackage: Package;
   perTVCost: number;
 
-  packages: object[] = [];
+  packages: Object[] = [];
 
   constructor(
     private tvService: TvService,
@@ -89,11 +89,11 @@ export class PricingService {
   }
 
   testService() {
-    console.log("Test Service Ran");
     console.log(this.currentPackage);
-    
-    this.packages.push(this.currentPackage)
-    
+    console.log(this.packages);
+    const result = Object.assign(this.currentPackage);
+    this.packages.push(result)
+    console.log(this.packages);
   }
 
   resetPackages(): void {
@@ -230,8 +230,6 @@ export class PricingService {
     if (this.currentPackage.tv.addOns.indexOf(freeAddOn[0]) !== -1) {
       this.currentPackage.tv.addOnsInfo.forEach(element => {
         if (element[0] === freeAddOn[0]) {
-          console.log("Add if ran");
-          
           this.currentPackage.year1Discount += element[1];
           this.currentPackage.year2Discount += element[1];
           this.updatePrice();
@@ -334,6 +332,7 @@ export class PricingService {
       this.currentPackage.internet.selected = false;
     }
     this.currentPackage.internet.base = internetPackage[1];
+    this.currentPackage.internet.internetSpeed = internetPackage[0];
     if (this.currentPackage.internet.bundled) {
       this.currentPackage.internet.discountBundled = internetPackage[2];
     } else {

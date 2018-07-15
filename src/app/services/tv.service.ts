@@ -62,7 +62,7 @@ freeAddOns: any[];
       addOns: [['HBO', 5], ['Cinemax', 5], ['Starz', 8], ['Showtime', 8], ['Espanol', 10], ['Deportes', 5],]
     }
 
-    this.freeAddOns = [['HBO', 'HBO-free'], ['Cinemax', 'Cinemax-free'], ['Starz', 'Starz-free'], ['Showtime', 'Showtime-free'], ['VRV', 'VRV-free'], ['Amazon Music', 'Amazon-free'], ['Pandora Premium', 'Amazon-free'], ];
+    this.freeAddOns = [['HBO', 'HBO-free'], ['Cinemax', 'Cinemax-free'], ['Starz', 'Starz-free'], ['Showtime', 'Showtime-free'], ['VRV', 'VRV-free'], ['Amazon Music', 'Amazon-free'], ['Pandora Premium', 'Pandora-free'], ];
 
   }
 }

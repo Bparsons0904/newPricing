@@ -2,3 +2,91 @@
     margin-top: 25%; 
 }
 
+.input-container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+mat-card {
+  padding: 0%;
+  margin-bottom: 15px;
+}
+
+mat-card-content {
+  padding-bottom: 10px;
+}
+
+mat-form-field {
+  font-size: 1.25em;
+}
+
+.packages {
+  width: 100%;
+  margin: 15px 15px 0px 15px;
+}
+
+.header {
+  /* color: #00a6d6; */
+}
+
+.cost-header {
+  background-color: #00a6d6;
+  color: #ffffff;
+  padding: 10px;
+}
+
+.tv-package-info {
+  font-size: 1.5em;
+  padding: 5px;
+}
+
+.internet-package {
+  font-size: 1.5em;
+}
+
+.tv-package-addOn {
+  font-size: 1.15em;
+}
+
+.addOn-header {
+  text-decoration: underline;
+  text-decoration-color: #00c3ff;
+}
+
+.includes-header {
+  text-decoration: underline;
+  text-decoration-color: #00c3ff;
+}
+
+.discounts {
+  font-size: 1.15em;
+}
+
+.tv-package-freeAddOn {
+  font-size: 1.15em;
+  color: #00a6d6;
+}
+
+.button {
+    border-radius: 15px;
+    border-style: groove;
+    min-width: 150px;
+    padding: 10px;
+    margin-left: 2.5px;
+    margin-right: 2.5px;
+    font-size: 1.25em;
+}
+
+.pricing-tab {
+    padding: 5px;
+    margin-left: 2.5px;
+    margin-right: 2.5px;
+    
+}
+
+#regional {
+  font-size: .75em;
+  color: #ffffff;
+}

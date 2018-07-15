@@ -1,13 +1,234 @@
-<div class="coming-soon text-center">
-  <h3>Future Upgrade Coming Soon!</h3>
-</div>
-<div class="coming-soon text-center">
-  <h5>I hope you find the updated calculator beneficial.</h5>
-  <h5>If you have any suggestions or feedback, feel free to <a href="mailto:bparsons@waugze.com?Subject=Calculator%20suggestion" target="_top">email</a> me.</h5>
-</div>
 
-<div id="packages" class="row">
-  <div *ngFor="let package of packages" class="packages mx-auto">
-    <div (click)=selectPackage(package) id="{{ package.tv.type }}" class="packages-tab button text-center">{{ package.tv.package }}</div>
+<div id="compare-container" *ngIf="packages?.length > 0">
+  <div class="input-container">
+    <mat-form-field>
+      <input matInput placeholder="Current Home Services Cost" type="number" [(ngModel)]="currentCost">
+      <span matPrefix>$&nbsp;</span>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Additional Promotions" type="number" [(ngModel)]="promotions">
+      <span matPrefix>$&nbsp;</span>
+    </mat-form-field>
+  </div>
+  
+  
+  <div id="packages" class="row">
+    <div *ngFor="let package of packages" class="packages">
+      <mat-card>
+        <div class="cost-header">
+          <div class="header text-center">
+            <h5>Package #{{ packages.indexOf(package) + 1 }}</h5>
+          </div>
+          <div id="pricing-section" class="row">
+            <div class="pricing mx-auto">
+              <div class="pricing-tab text-center">
+                <h3>Months 1-12
+                  <br/>${{ package.year1Pricing }}</h3>
+              </div>
+            </div>
+          
+            <div class="pricing mx-auto">
+              <div class="pricing-tab text-center">
+                <h3>Months 13+
+                  <br/>${{ package.year2Pricing }}</h3>
+              </div>
+            </div>
+          </div>
+          <div class="text-center">
+            <h4 *ngIf="package.year1Pricing < currentCost && promotions">1st Year Savings: ${{ ((currentCost - package.year1Pricing) * 12) + promotions }}</h4>
+            <h4 *ngIf="package.year1Pricing < currentCost && !promotions">1st Year Savings: ${{ (currentCost - package.year1Pricing) * 12 }}</h4>
+          </div>
+          <div class="mx-auto" *ngIf="package.tv.regional">
+            <div id="regional" class="text-center">
+              Regional Sports Fee May Apply. Amount Varies.
+            </div>
+          </div>
+        </div>
+        
+        <mat-card-content *ngIf="package.tv.selected">
+          <!-- <div class="tv-package-header text-center">TV Service</div> -->
+          <div class="tv-package-info text-center"><span>
+             {{ package.tv.tvType }} w/ {{ package.tv.package }} package and {{ package.tv.numberofTVs }}
+            <span> TV</span>
+            <span *ngIf="package.tv.numberofTVs > 1">'s</span><span *ngIf="package.internet.selected"> including {{ package.internet.internetSpeed | lowercase }} Internet</span>.
+          </span>
+            
+          </div>
+          <div class="tv-package-addOn" *ngIf="package.tv.addOns?.length > 0">
+            <div class="text-center addOn-header">
+               Package Included Premium Services
+            </div>
+            <!-- <mat-divider></mat-divider> -->
+            <!-- <div class="text-center"><span *ngFor="let addOn of package.tv.addOns | slice:0:2">{{ addOn }}<span *ngIf="addOn !== package.tv.addOns[package.tv.addOns?.length -1]"> | </span></span></div> -->
+            <div class="text-center">
+              <span *ngIf="package.tv.addOns[0]">{{package.tv.addOns[0]}}</span>
+              <span *ngIf="package.tv.addOns[1]"> | {{package.tv.addOns[1]}}</span>
+              <span *ngIf="package.tv.addOns[2]"> | {{package.tv.addOns[2]}}</span>
+              <br *ngIf="package.tv.addOns?.length > 3" />
+              <span *ngIf="package.tv.addOns[3]">{{package.tv.addOns[3]}}</span>
+              <span *ngIf="package.tv.addOns[4]"> | {{package.tv.addOns[4]}}</span>
+              <span *ngIf="package.tv.addOns[5]"> | {{package.tv.addOns[5]}}</span>
+            </div>
+          </div>
+          <div class="tv-package-freeAddOn text-center" *ngIf="package.tv.freeAddon?.length > 0"><p>
+            {{ package.tv.freeAddon[0] }} included for free!</p>
+          </div>
+          <div class="discounts text-center" *ngIf="package.discounts?.length > 0">
+            <div class="includes-header">Includes Discount<span *ngIf="package.discounts?.length > 1">'s</span></div>
+            <div class="text-center"><span *ngFor="let discount of package.discounts"><span *ngIf="(package.discounts?.indexOf(discount)+2)%2 !== 0"> | </span>{{ discount }}</span></div>
+          </div>
+          
+
+            <!-- <p>TV Service: {{ package.tv.tvType }}</p>
+            <p>TV Package: {{ package.tv.package }}</p>
+            <p>Number of TV's: {{ package.tv.numberofTVs }}</p>
+            <div *ngIf="package.tv.addOns?.length > 0">
+              <p>Bolt On Services:
+                <span *ngFor="let addOn of package.tv.addOns"> {{ addOn }}</span>
+              </p>
+            </div>
+          
+            <p *ngIf="package.tv.freeAddon?.length > 0">Free Premium {{ package.tv.freeAddon[0] }}</p> -->
+
+        </mat-card-content>
+        <mat-card-content *ngIf="package.internet.selected && !package.tv.selected">
+          <div class="internet-package">
+            <p>{{ package.internet.internetSpeed }} Internet</p>
+          </div>
+        </mat-card-content>
+        <mat-divider></mat-divider>
+        <mat-card-footer>
+
+        </mat-card-footer>
+<!--         
+        <div *ngIf="package.discounts?.length > 0">
+          <p>Discount:
+            <span *ngFor="let discount of package.discounts">{{ discount }}</span>
+          </p>
+        </div> -->
+        <!-- <div class="cost">
+          <p>1st Year Pricing: ${{ package.year1Pricing }}</p>
+          <p>2nd Year Pricing: ${{ package.year2Pricing }}</p>
+          <p *ngIf="!promotions">1st Year Total Discounts: ${{( package.year1Discount * 12) }}</p>
+          <p *ngIf="promotions">1st Year Total Discounts: ${{( package.year1Discount * 12) + promotions }}</p>
+          
+        </div>
+        <div class="mx-auto" *ngIf="package.tv.regional">
+          <div class="text-center">
+            Regional Sports Fee May Apply. Amount Varies.
+          </div>
+        </div> -->
+      </mat-card>
+        
+    </div>
   </div>
 </div>
+
+<div class="containter"  *ngIf="packages?.length === 0">
+  <div class="coming-soon text-center">
+    <h3>Must add at least 1 package to compare.</h3>
+  </div>
+  <div class="coming-soon text-center">
+    <h3>Future Upgrade Coming Soon!</h3>
+  </div>
+  <div class="coming-soon text-center">
+    <h5>I hope you find the updated calculator beneficial.</h5>
+    <h5>If you have any suggestions or feedback, feel free to <a href="mailto:bparsons@waugze.com?Subject=Calculator%20suggestion" target="_top">email</a> me.</h5>
+  </div>
+</div>
+
+
+
+<!-- tv?: { selected?: boolean; tvType?: string; package?: string; spanish?: boolean; numberofTVs?: number; costOfExtraTvs?: number;
+base?: number; discount?: number; regional?: boolean; addOns?: any[]; freeAddon?: any[]; freeAddons?: any[]; addOnsInfo?:
+any[]; addOnsCost?: number; }; internet?: { selected?: boolean; internetSpeed?: string; base?: number; discountBundled?:
+number; discount1Year?: number; bundled?: boolean; }; phone?: { selected?: boolean; phoneService?: string; base?: number;
+discount?: number; }; freeServiceEligible?: boolean; year1Pricing?: number; year2Pricing?: number; year1Discount?: number;
+year2Discount?: number; discounts?: any[]; -->
+
+<!-- <h2>Column oriented table</h2>
+
+<div class="Rtable">
+
+  <div style="order:1;" class="Rtable-cell">
+    <h3>Eddard Stark</h3>
+  </div>
+  <div style="order:2;" class="Rtable-cell">Has a sword named Ice</div>
+  <div style="order:3;" class="Rtable-cell">No direwolf</div>
+  <div style="order:4;" class="Rtable-cell">
+    <strong>Lord of Winterfell</strong>
+  </div>
+
+  <div style="order:1;" class="Rtable-cell">
+    <h3>Jon Snow</h3>
+  </div>
+  <div style="order:2;" class="Rtable-cell">Has a sword named Longclaw</div>
+  <div style="order:3;" class="Rtable-cell">Direwolf: Ghost</div>
+  <div style="order:4;" class="Rtable-cell">
+    <strong>Knows nothing</strong>
+  </div>
+
+  <div style="order:1;" class="Rtable-cell">
+    <h3>Arya Stark</h3>
+  </div>
+  <div style="order:2;" class="Rtable-cell">Has a sword named Needle</div>
+  <div style="order:3;" class="Rtable-cell">Direwolf: Nymeria</div>
+  <div style="order:4;" class="Rtable-cell">
+    <strong>No one</strong>
+  </div>
+
+  <div style="order:1;" class="Rtable-cell">
+    <h3>Bob Parsons</h3>
+  </div>
+  <div style="order:2;" class="Rtable-cell">Has a sword named Frank</div>
+  <div style="order:3;" class="Rtable-cell">Direwolf: Raven</div>
+  <div style="order:4;" class="Rtable-cell">
+    <strong>No one</strong>
+  </div>
+
+</div> -->
+
+<!-- <div class="table">
+  <div class="block">
+    <div></div>
+    <div>Service</div>
+    <div>Package</div>
+    <div>Number of TV(s)</div>
+    <div>Bolt On(s)</div>
+    <br *ngIf="packages?.length > 0 && packages[0].tv.addOns?.length > 3" />
+    <div>Free Premium</div>
+  </div>
+  <div *ngFor="let package of packages" class="block packages">
+    <div>#{{ packages.indexOf(package) + 1 }}</div>
+    <div>{{ package.tv.tvType }}</div>
+    <div>{{ package.tv.package }}</div>
+    <div>{{ package.tv.numberofTVs }}</div> -->
+    <!-- <div><span *ngFor="let addOn of package.tv.addOns | slice:0:2">{{ addOn }}  |</span><span style="white-space: pre-line"></span><span *ngFor="let addOn of package.tv.addOns | slice:3:6">{{ addOn }} |</span></div> -->
+    <!-- <div>
+      <span *ngIf="package.tv.addOns[0]">{{package.tv.addOns[0]}}</span>
+      <span *ngIf="package.tv.addOns[1]"> | {{package.tv.addOns[1]}}</span>
+      <span *ngIf="package.tv.addOns[2]"> | {{package.tv.addOns[2]}}</span>
+      <br *ngIf="package.tv.addOns?.length > 3"/>
+      <span *ngIf="package.tv.addOns[3]">{{package.tv.addOns[3]}}</span>
+      <span *ngIf="package.tv.addOns[4]"> | {{package.tv.addOns[4]}}</span>
+      <span *ngIf="package.tv.addOns[5]"> | {{package.tv.addOns[5]}}</span>
+    </div>
+    <div>{{ package.tv.freeAddon[0] }}</div>
+  </div>
+  <div class="block">
+    <div>#1</div>
+    <div>Service</div>
+    <div>Package</div>
+    <div>Number of TV(s)</div>
+    <div>Bolt On(s)</div>
+    <div>Free Premium</div>
+  </div>
+  <div class="block">
+    <div>#2</div>
+    <div>Service</div>
+    <div>Package</div>
+    <div>Number of TV(s)</div>
+    <div>Bolt On(s)</div>
+    <div>Free Premium</div>
+  </div>
+</div> -->

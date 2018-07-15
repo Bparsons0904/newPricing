@@ -8,7 +8,9 @@ import { PricingService } from '../../services/pricing.service';
 })
 export class CompareComponent implements OnInit {
 
-  packages: object[] = [];
+  packages: object[];
+  currentCost: any;
+  promotions: any;
 
   constructor(
     public pricingService: PricingService,
