@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PricingService } from '../../services/pricing.service';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-home',
@@ -16,6 +17,7 @@ export class HomeComponent implements OnInit {
   
   constructor(
     public pricingService: PricingService,
+    public snackBar: MatSnackBar,
   ) {}
 
   ngOnInit() {
@@ -57,6 +59,9 @@ export class HomeComponent implements OnInit {
   selectPackage(selectedPackage): void {
     if (this.activeServiceType === 'tv' || this.activeServiceType === 'stream') {
       this.pricingService.setTVPackage(selectedPackage);
+      if (this.pricingService.currentPackage.tv.numberofTVs === 1) {
+        this.selectNumberOfTvs(1);
+      }
     } else {
       this.pricingService.setInternetPackage(selectedPackage)
     }
@@ -241,9 +246,15 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  testButton() {
-    this.pricingService.testService();
+  addToCompare() {
+    this.pricingService.addToCompare();
+    this.snackBar.open('Packaged added to comparision', null, {
+      duration: 1500
+    });
   }
 
-}
+  // testButton() {
+  //   this.pricingService.testService();
+  // }
 
+}

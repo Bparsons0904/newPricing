@@ -68,6 +68,10 @@ export class PricingService {
     this.internetPackages = this.internetService.internet;
   }
 
+  editPackage(selectedPacakge): void {
+    this.currentPackage = selectedPacakge;
+  }
+
   updatePrice() {
     this.currentPackage.year1Pricing = this.currentPackage.tv.base + this.currentPackage.tv.costOfExtraTvs - this.currentPackage.tv.discount - this.currentPackage.year1Discount - this.currentPackage.internet.discount1Year + this.currentPackage.internet.base - this.currentPackage.internet.discountBundled + this.currentPackage.tv.addOnsCost;
 
@@ -86,14 +90,6 @@ export class PricingService {
 
   setInit(): void {
     this.initComplete = true;
-  }
-
-  testService() {
-    console.log(this.currentPackage);
-    console.log(this.packages);
-    const result = Object.assign(this.currentPackage);
-    this.packages.push(result)
-    console.log(this.packages);
   }
 
   resetPackages(): void {
@@ -163,6 +159,7 @@ export class PricingService {
         this.currentPackage.tv.tvType = this.tvService.directv.name;
         this.perTVCost = this.tvService.directv.perTVCost;
         this.currentPackage.internet.bundled = true;
+        this.currentPackage.tv.freeAddons = this.tvService.freeAddOns;
         break;
       case 'dtv-spanish-select':
         this.resetPackages();
@@ -170,6 +167,7 @@ export class PricingService {
         this.currentPackage.tv.tvType = this.tvService.directvSpanish.name;
         this.perTVCost = this.tvService.directvSpanish.perTVCost;
         this.currentPackage.internet.bundled = true;
+        this.currentPackage.tv.freeAddons = this.tvService.freeAddOns;
         this.currentPackage.tv.spanish = true;
         break;
       case 'uvtv-select':
@@ -178,6 +176,7 @@ export class PricingService {
         this.currentPackage.tv.tvType = this.tvService.uverse.name;
         this.perTVCost = this.tvService.uverse.perTVCost;
         this.currentPackage.internet.bundled = true;
+        this.currentPackage.tv.freeAddons = this.tvService.freeAddOns;
         break;
       case 'uvtv-spanish-select':
         this.resetPackages();
@@ -185,6 +184,7 @@ export class PricingService {
         this.currentPackage.tv.tvType = this.tvService.uverseSpanish.name;
         this.perTVCost = this.tvService.uverseSpanish.perTVCost;
         this.currentPackage.internet.bundled = true;
+        this.currentPackage.tv.freeAddons = this.tvService.freeAddOns;
         this.currentPackage.tv.spanish = true;
         break;
       case 'now-select':
@@ -339,6 +339,11 @@ export class PricingService {
       this.currentPackage.internet.discount1Year = internetPackage[3];
     }
     this.updatePrice();
+  }
+
+  addToCompare(): void {
+    const result = Object.assign({}, this.currentPackage);
+    this.packages.push(result)
   }
 
   // setDiscounts(discounts: number[]) {

@@ -1,5 +1,21 @@
+/* #pricing-section {
+    position: fixed;
+    top: 0px;
+} */
+
+#pricing-section {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    /* margin: 0px 0px 100px 0px;
+    background-color: #00a6d6; */
+    background-color: #00a6d6;
+    border: 0px;
+    border-bottom: 2px solid #ffffff;
+}
 .active {
-    background-color: #00A8E0;
+    /* background-color: #00A8E0; */
     background-color: #00a6d6;
     color: white;
 }
@@ -26,11 +42,6 @@
     font-size: 1.25em;
 }
 
-#pricing-section {
-    background-color: #00a6d6;
-    border-style: none;
-}
-
 .pricing-tab {
     padding: 5px;
     margin-left: 2.5px;
@@ -53,7 +64,7 @@
 }
 
 #control-selection {
-    margin-top: 5px;
+    margin-top: 125px;
     margin-bottom: 5px;
 }
 
@@ -97,6 +108,7 @@
 
 #free-service-header {
     color: #00a6d6;
+    margin: 0px;
 }
 
 .free-addon-tab {
@@ -126,9 +138,16 @@
     border-top-right-radius: 10px;
 }
 
+#compare {
+    margin-top: 5px;
+    max-width: 350px;
+}
+
+
+
 @media (min-width: 768px) { 
     .button {
-        min-width: 250px;
+        min-width: 225px;
         padding: 10px;
         margin-left: 5px;
         margin-right: 5px;

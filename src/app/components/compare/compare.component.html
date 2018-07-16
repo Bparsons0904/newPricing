@@ -12,11 +12,13 @@
   </div>
   
   
-  <div id="packages" class="row">
+  <div id="packages">
     <div *ngFor="let package of packages" class="packages">
+      
       <mat-card>
         <div class="cost-header">
-          <div class="header text-center">
+          <div class="header text-center" (click)=editPackage(package)>
+          <!-- <div class="header text-center" (click)=editPackage(package)> -->
             <h5>Package #{{ packages.indexOf(package) + 1 }}</h5>
           </div>
           <div id="pricing-section" class="row">
@@ -96,10 +98,13 @@
             <p>{{ package.internet.internetSpeed }} Internet</p>
           </div>
         </mat-card-content>
-        <mat-divider></mat-divider>
+        <mat-card-content>
+          <div id="remove" class="text-center" (click)=removePackage(package)>Remove Package</div>
+        </mat-card-content>
+        <!-- <mat-divider></mat-divider>
         <mat-card-footer>
 
-        </mat-card-footer>
+        </mat-card-footer> -->
 <!--         
         <div *ngIf="package.discounts?.length > 0">
           <p>Discount:
