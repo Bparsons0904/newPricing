@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PricingService } from '../../services/pricing.service';
 import { MatSnackBar } from '@angular/material';
+import { CompareComponent } from '../compare/compare.component';
 
 @Component({
   selector: 'app-home',
@@ -244,6 +245,11 @@ export class HomeComponent implements OnInit {
       const element = array[i];
       element.classList.remove('active')
     }
+  }
+
+  compare(): void {
+    console.log("WTF");
+    
   }
 
   addToCompare() {
