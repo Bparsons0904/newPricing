@@ -1,10 +1,8 @@
 import { Injectable } from '@angular/core';
 import { TvService } from './tv.service';
 import { InternetService } from './internet.service';
-// import { Observable, of } from 'rxjs';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { Package } from '../models/Package';
-import { element } from 'protractor';
 
 @Injectable({
   providedIn: 'root'

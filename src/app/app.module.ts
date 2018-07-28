@@ -17,16 +17,13 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PricingService } from './services/pricing.service';
 import { TvService } from './services/tv.service';
-import { DiscountsService } from './services/discounts.service';
 import { InternetService } from './services/internet.service';
-import { CompareComponent } from './components/compare/compare.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     NavBarComponent,
-    CompareComponent
   ],
   imports: [
     BrowserModule,
@@ -43,7 +40,7 @@ import { CompareComponent } from './components/compare/compare.component';
     MatInputModule,
     MatSnackBarModule,
   ],
-  providers: [PricingService, TvService, DiscountsService, InternetService],
+  providers: [PricingService, TvService, InternetService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

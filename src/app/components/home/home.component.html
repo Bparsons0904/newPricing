@@ -42,11 +42,7 @@
   
   
   <mat-divider></mat-divider>
-  <!-- <div class="row" *ngIf="tempPackage">
-    <p>Temp Package Price</p>
-    {{ tempPackage.tv.base }}
-  </div> -->
-  
+
   <div id="packages" class="row" *ngIf="currentService">
     <div *ngFor="let package of currentService.packages" class="packages mx-auto">
       <div (click)=selectPackage(package) id="{{ package[0] }}" class="packages-tab button text-center">{{ package[0] }}</div>
@@ -72,8 +68,6 @@
     <div class="row">
       <div *ngFor="let addOn of currentService.addOns" id="addOns" class="packages mx-auto">
         <div (click)=selectAddOn(addOn) id="{{ addOn[0] }}" class="addOns-tab button text-center">{{ addOn[0] }}</div>
-        <!-- <button (click)=selectDiscount(discount) [ngClass]="{'active': discount[3]==true}">{{ discount[0] }}</button> -->
-        <!-- [ngClass]="{'addon-active': addOn[2] && pricingService.currentPackage.freeServiceEligible}" -->
       </div>
     </div>
   </div>
@@ -89,7 +83,6 @@
     <div class="row">
       <div *ngFor="let discount of currentService.discounts" id="discounts" class="mx-auto">
         <div (click)=selectDiscount(discount) id="{{ discount[0] }}" class="discounts-tab button text-center">{{ discount[0] }}</div>
-        <!-- <button (click)=selectDiscount(discount) [ngClass]="{'active': discount[3]==true}">{{ discount[0] }}</button> -->
       </div>
     </div>
     <div class="row">
@@ -100,7 +93,6 @@
     <div class="row" *ngIf="pricingService.currentPackage.freeServiceEligible">
       <div *ngFor="let addOn of pricingService.currentPackage.tv.freeAddons" id="free-addon" class="mx-auto">
         <div (click)=freeAddOn(addOn) id="{{ addOn[1] }}" class="free-addon-tab button text-center">{{ addOn[0] }}</div>
-        <!-- <button (click)=selectDiscount(discount) [ngClass]="{'active': discount[3]==true}">{{ discount[0] }}</button> -->
       </div>
     </div>
   </div>
@@ -145,7 +137,7 @@
   
   
     <div id="packages">
-      <div *ngFor="let package of pricingService.packages" class="packages">
+      <div *ngFor="let package of pricingService.packages" class="packages-compare">
   
         <mat-card>
           <div class="cost-header">
