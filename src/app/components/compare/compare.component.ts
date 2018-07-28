@@ -26,14 +26,12 @@ export class CompareComponent implements OnInit {
   }
 
   editPackage(selectedPackage): void {
-    console.log(selectedPackage);
     this.router.navigate(['']);
     this.pricingService.editPackage(selectedPackage);
   }
 
   removePackage(selectedPackage): void {
     const index = this.packages.indexOf(selectedPackage);
-    // this.packages.splice(index, 1);
     this.pricingService.packages.splice(index, 1);
   }
 }

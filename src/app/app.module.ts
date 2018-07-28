@@ -1,11 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-import { AppRoutingModule } from './/app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
-import { PricingComponent } from './components/pricing/pricing.component';
-import { NotFoundComponent } from './components/not-found/not-found.component';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatButtonModule } from '@angular/material/button';
@@ -28,14 +25,11 @@ import { CompareComponent } from './components/compare/compare.component';
   declarations: [
     AppComponent,
     HomeComponent,
-    PricingComponent,
-    NotFoundComponent,
     NavBarComponent,
     CompareComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     MatTabsModule,
     BrowserAnimationsModule,
     MatDividerModule,

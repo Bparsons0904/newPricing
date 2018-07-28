@@ -13,21 +13,12 @@ mat-card {
   margin-bottom: 15px;
 }
 
-mat-card-content {
-
-}
-
 mat-form-field {
   font-size: 1.25em;
 }
 
-.packages {
+.packages-compare {
   width: 100%;
-  /* margin: 0px 15px 25px 15px; */
-}
-
-.header {
-  /* color: #00a6d6; */
 }
 
 .cost-header {
@@ -78,11 +69,10 @@ mat-form-field {
     font-size: 1.25em;
 }
 
-.pricing-tab {
+.pricing-tab-compare {
     padding: 5px;
     margin-left: 2.5px;
     margin-right: 2.5px;
-    
 }
 
 #regional {

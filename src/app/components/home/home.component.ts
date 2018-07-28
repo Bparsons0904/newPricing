@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PricingService } from '../../services/pricing.service';
 import { MatSnackBar } from '@angular/material';
-import { CompareComponent } from '../compare/compare.component';
+
 
 @Component({
   selector: 'app-home',
@@ -13,8 +13,10 @@ export class HomeComponent implements OnInit {
   currentService: object;
   activeServiceType: string;
   activeServiceName: string;
-
+  currentCost: any;
+  promotions: any;
   maxTV: number[];
+  
   
   constructor(
     public pricingService: PricingService,
@@ -35,6 +37,12 @@ export class HomeComponent implements OnInit {
         this.maxTV.push(i);
       }
     });  
+  }
+
+
+  removePackage(selectedPackage): void {
+    const index = this.pricingService.packages.indexOf(selectedPackage);
+    this.pricingService.packages.splice(index, 1);
   }
 
   selectDiscount(discount): void {

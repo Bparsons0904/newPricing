@@ -15,7 +15,7 @@ export class PricingService {
 
   currentService = new BehaviorSubject<any>(null);
   castCurrentService = this.currentService.asObservable();
-  
+  compareActive: boolean = false;
   internetPackages: Object;
   currentPackage: Package;
   perTVCost: number;
@@ -84,15 +84,12 @@ export class PricingService {
     }
   }
 
-  // getCurrentService(): Observable<object> {
-  //   return of(this.currentService);
-  // }
-
   setInit(): void {
     this.initComplete = true;
   }
 
   resetPackages(): void {
+    this.compareActive = false;
     this.currentPackage = {
       name: 'currentPackage',
       tv: {
@@ -196,9 +193,13 @@ export class PricingService {
         this.currentPackage.tv.freeAddons = this.tvService.freeAddOns;
         this.currentPackage.tv.addOnsInfo = this.tvService.dtvnow.addOns;
         break;
-      default:
+      case 'bb-select':
         this.resetPackages();
         this.currentService.next(this.internetService.internet);
+        break;
+      default:
+        this.resetPackages();
+        this.compareActive = true;
         break;
     }
   }
@@ -214,14 +215,6 @@ export class PricingService {
       this.updatePrice();
     }
   }
-
-  // freeAddOn(addOn): boolean {
-  //   if (this.currentPackage.tv.freeAddon.indexOf(addOn) === -1) {
-  //     return true;
-  //   } else {
-  //     return false;
-  //   }
-  // }
 
   addFreeAddOn(freeAddOn): void {
     this.currentPackage.tv.freeAddon = [];
@@ -291,23 +284,6 @@ export class PricingService {
     }
     this.updatePrice();
     return status
-    
-    // this.currentService.subscribe(currentService => {
-    //   this.service = currentService.name;
-    //   if (discount[3] === false) {
-    //     this.discountYear1 += discount[1];
-    //     this.discountYear2 += discount[2];
-    //   } else {
-    //     this.discountYear1 -= discount[1];
-    //     this.discountYear2 -= discount[2];
-    //   }
-    //   discount[3] = !discount[3];
-    //   currentService.discounts[discount[4]] = discount;
-    //   this.updatePrice();
-    // })
-
-    // const element = [discount[0], true];
-    // this.tvService.directv.activeDiscounts.push(element);
   }
 
   setTVPackage(tvPackage: any[]): void {
@@ -345,14 +321,4 @@ export class PricingService {
     const result = Object.assign({}, this.currentPackage);
     this.packages.push(result)
   }
-
-  // setDiscounts(discounts: number[]) {
-  //   this.discountYear1 = 0
-  //   discounts.forEach(element => {
-  //     this.discountYear1 += element;
-  //   });
-  // }
-
-
-
 }
