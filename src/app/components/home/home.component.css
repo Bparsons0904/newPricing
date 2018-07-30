@@ -87,11 +87,17 @@ mat-form-field {
 }
 /* End Compare */
 
+#pricing-header {
+    width: 100%;
+}
+
 #pricing-section {
     position: fixed;
+    overflow: hidden;
     top: 0px;
     left: 0px;
-    width: 100%;
+    width: inherit;
+    max-width: 1000px;
     background-color: #00a6d6;
     border: 0px;
     border-bottom: 2px solid #ffffff;

@@ -13,3 +13,12 @@
   flex-direction: column;
   margin-top: 15px;
 }
+
+#outer-div {
+  position: relative;
+  width: 100%;
+}
+
+#inner-div {
+  position: absolute;
+}
