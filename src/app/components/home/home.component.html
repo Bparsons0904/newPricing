@@ -1,127 +1,140 @@
-<div id="pricing-header" *ngIf="!pricingService.compareActive">
-  <div id="pricing-section">
-    <div class="row mx-auto">
-      <div class="pricing mx-auto">
-        <div class="pricing-tab button-pricing text-center">
-          <p class="text-center">Months 1-12</p>
-          <p class="text-center">${{ pricingService.currentPackage.year1Pricing }}</p>
-        </div>
-      </div>
-      <div class="pricing mx-auto">
-        <div class="pricing-tab button-pricing text-center">
-          <p class="text-center">Months 13+</p>
-          <p class="text-center">${{ pricingService.currentPackage.year2Pricing }}</p>
-        </div>
+<div id="pricing-header" class="">
+
+  <div id="pricing-section" class="row" *ngIf="!pricingService.compareActive">
+    <div class="pricing mx-auto">
+      <div class="pricing-tab button-pricing text-center">
+        <p class="text-center">Months 1-12</p>
+        <p class="text-center">${{ pricingService.currentPackage.year1Pricing }}</p>
       </div>
     </div>
-    <div id="regional" class="row">
-      <div class="mx-auto" *ngIf="pricingService.currentPackage.tv.regional">
-        <div class="text-center">
-          Regional Sports Fee May Apply. Amount Varies.
-        </div>
+    <div class="pricing mx-auto">
+      <div class="pricing-tab button-pricing text-center">
+        <p class="text-center">Months 13+</p>
+        <p class="text-center">${{ pricingService.currentPackage.year2Pricing }}</p>
+      </div>
+    </div>
+    
+  </div>
+  <div id="regional" class="row" *ngIf="!pricingService.compareActive">
+    <div class="mx-auto" *ngIf="pricingService.currentPackage.tv.regional">
+      <div class="text-center">
+        Regional Sports Fee May Apply. Amount Varies.
       </div>
     </div>
   </div>
   
   
   <!-- End Pricing Row -->
-  
-  <div id="control-selection" class="mx-auto">
-    <div class="row">
-      <div *ngIf="activeServiceType != 'tv'" class="mx-auto">
-        <div (click)="bundleServices()" id="bundle" class="control-tab button text-center">Bundle</div>
-      </div>
-      <div *ngIf="activeServiceType == 'tv'" class="mx-auto">
-        <div (click)="spanishSelect()" id="spanish" [ngClass]="{'active': pricingService.currentPackage.tv.spanish}" class="control-tab button text-center">Spanish</div>
-      </div>
-      <div class="mx-auto">
-        <div (click)="clearBundle()" id="clear" class="control-tab button text-center">Clear</div>
-      </div>
-    </div>
-  </div>
-  
-  
-  <mat-divider></mat-divider>
 
-  <div id="packages" class="row" *ngIf="currentService">
-    <div *ngFor="let package of currentService.packages" class="packages mx-auto">
-      <div (click)=selectPackage(package) id="{{ package[0] }}" class="packages-tab button text-center">{{ package[0] }}</div>
-    </div>
+  <div id="nav-bar" class="row">
+    <nav class="tab-group">
+      <div (click)="serviceSelect('dtv-select')" routerLink="/" id="dtv-select" class="nav-tab text-center active">DTV</div>
+      <div (click)="serviceSelect('uvtv-select')" routerLink="/" id="uvtv-select" class="nav-tab text-center">UVTV</div>
+      <div (click)="serviceSelect('now-select')" routerLink="/" id="now-select" class="nav-tab text-center">NOW</div>
+      <div (click)="serviceSelect('bb-select')" routerLink="/" id="bb-select" class="nav-tab text-center">BB</div>
+      <div (click)="serviceSelect('compare-select')" id="compare-select" class="nav-tab text-center">Compare</div>
+    </nav>
   </div>
   
-  <div id="tv-selection" class="row" *ngIf="activeServiceName != 'Broadband Internet'">
-    <div id="tv" class="mx-auto">
-      <div class="" *ngFor="let tv of maxTV">
-        <div (click)=selectNumberOfTvs(tv) id="tv{{ tv }}" class="tv-tab text-center">{{ tv }}</div>
+  <section *ngIf="!pricingService.compareActive">
+    <div id="control-selection" class="mx-auto">
+      <div class="row">
+        <div *ngIf="activeServiceType != 'tv'" class="mx-auto">
+          <div (click)="bundleServices()" id="bundle" class="control-tab button text-center">Bundle</div>
+        </div>
+        <div *ngIf="activeServiceType == 'tv'" class="mx-auto">
+          <div (click)="spanishSelect()" id="spanish" [ngClass]="{'active': pricingService.currentPackage.tv.spanish}" class="control-tab button text-center">Spanish</div>
+        </div>
+        <div class="mx-auto">
+          <div (click)="clearBundle()" id="clear" class="control-tab button text-center">Clear</div>
+        </div>
       </div>
     </div>
-  </div>
+    
+    
+    <mat-divider></mat-divider>
+    
+    <div id="packages" class="row" *ngIf="currentService">
+      <div *ngFor="let package of currentService.packages" class="packages mx-auto">
+        <div (click)=selectPackage(package) id="{{ package[0] }}" class="packages-tab button text-center">{{ package[0] }}</div>
+      </div>
+    </div>
+    
+    <div id="tv-selection" class="row" *ngIf="activeServiceName != 'Broadband Internet'">
+      <div id="tv" class="mx-auto">
+        <div class="" *ngFor="let tv of maxTV">
+          <div (click)=selectNumberOfTvs(tv) id="tv{{ tv }}" class="tv-tab text-center">{{ tv }}</div>
+        </div>
+      </div>
+    </div>
+    
+    <mat-divider></mat-divider>
+    
+    <div id="addOns-selection" *ngIf="activeServiceType === 'stream'">
+      <div class="row">
+        <div class="text-center mx-auto">
+          <h5 id="addOns-header">Available Bolt-Ons</h5>
+        </div>
+      </div>
+      <div class="row">
+        <div *ngFor="let addOn of currentService.addOns" id="addOns" class="packages mx-auto">
+          <div (click)=selectAddOn(addOn) id="{{ addOn[0] }}" class="addOns-tab button text-center">{{ addOn[0] }}</div>
+        </div>
+      </div>
+    </div>
+    
+    <mat-divider></mat-divider>
+    
+    <div id="discounts-selection" *ngIf="activeServiceType !== 'internet'">
+      <div class="row">
+        <div class="text-center mx-auto">
+          <h5 id="discounts-header">Available Discounts</h5>
+        </div>
+      </div>
+      <div class="row">
+        <div *ngFor="let discount of currentService.discounts" id="discounts" class="mx-auto">
+          <div (click)=selectDiscount(discount) id="{{ discount[0] }}" class="discounts-tab button text-center">{{ discount[0] }}</div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="text-center mx-auto">
+          <p id="free-service-header" *ngIf="pricingService.currentPackage.freeServiceEligible">Pick an eligble Premium service for free.</p>
+        </div>
+      </div>
+      <div class="row" *ngIf="pricingService.currentPackage.freeServiceEligible">
+        <div *ngFor="let addOn of pricingService.currentPackage.tv.freeAddons" id="free-addon" class="mx-auto">
+          <div (click)=freeAddOn(addOn) id="{{ addOn[1] }}" class="free-addon-tab button text-center">{{ addOn[0] }}</div>
+        </div>
+      </div>
+    </div>
+    
+    <mat-divider *ngIf="activeServiceType !== 'internet'"></mat-divider>
+    
+    <div *ngIf="activeServiceType == 'tv' || activeServiceType == 'stream'" id="internet-selection">
+      <div class="row">
+        <div class="text-center mx-auto">
+          <h5 *ngIf="!pricingService.currentPackage.internet.selected" id="include-internet">Include Internet</h5>
+          <h5 *ngIf="pricingService.currentPackage.internet.selected" (click)="removeInternet()" id="clear-internet">Remove Internet</h5>
+        </div>
+      </div>
+      <div class="row">
+        <div *ngFor="let package of  pricingService.internetPackages.packages" id="internet" class="mx-auto">
+          <div (click)=selectInternet(package) id="{{ package[0] }}" class="internet-tab button text-center">{{ package[0] }}</div>
+        </div>
+      </div>
+    </div>
+    
+    <mat-divider></mat-divider>
+    <div id="compare" class="mx-auto">
+      <div class="button text-center" (click)=addToCompare()>
+        Compare Package
+      </div>
+    </div>
+  </section>
   
-  <mat-divider></mat-divider>
-  
-  <div id="addOns-selection" *ngIf="activeServiceType === 'stream'">
-    <div class="row">
-      <div class="text-center mx-auto">
-        <h5 id="addOns-header">Available Bolt-Ons</h5>
-      </div>
-    </div>
-    <div class="row">
-      <div *ngFor="let addOn of currentService.addOns" id="addOns" class="packages mx-auto">
-        <div (click)=selectAddOn(addOn) id="{{ addOn[0] }}" class="addOns-tab button text-center">{{ addOn[0] }}</div>
-      </div>
-    </div>
-  </div>
-  
-  <mat-divider></mat-divider>
-  
-  <div id="discounts-selection" *ngIf="activeServiceType !== 'internet'">
-    <div class="row">
-      <div class="text-center mx-auto">
-        <h5 id="discounts-header">Available Discounts</h5>
-      </div>
-    </div>
-    <div class="row">
-      <div *ngFor="let discount of currentService.discounts" id="discounts" class="mx-auto">
-        <div (click)=selectDiscount(discount) id="{{ discount[0] }}" class="discounts-tab button text-center">{{ discount[0] }}</div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="text-center mx-auto">
-        <p id="free-service-header" *ngIf="pricingService.currentPackage.freeServiceEligible">Pick an eligble Premium service for free.</p>
-      </div>
-    </div>
-    <div class="row" *ngIf="pricingService.currentPackage.freeServiceEligible">
-      <div *ngFor="let addOn of pricingService.currentPackage.tv.freeAddons" id="free-addon" class="mx-auto">
-        <div (click)=freeAddOn(addOn) id="{{ addOn[1] }}" class="free-addon-tab button text-center">{{ addOn[0] }}</div>
-      </div>
-    </div>
-  </div>
-  
-  <mat-divider *ngIf="activeServiceType !== 'internet'"></mat-divider>
-  
-  <div *ngIf="activeServiceType == 'tv' || activeServiceType == 'stream'" id="internet-selection">
-    <div class="row">
-      <div class="text-center mx-auto">
-        <h5 *ngIf="!pricingService.currentPackage.internet.selected" id="include-internet">Include Internet</h5>
-        <h5 *ngIf="pricingService.currentPackage.internet.selected" (click)="removeInternet()" id="clear-internet">Remove Internet</h5>
-      </div>
-    </div>
-    <div class="row">
-      <div *ngFor="let package of  pricingService.internetPackages.packages" id="internet" class="mx-auto">
-        <div (click)=selectInternet(package) id="{{ package[0] }}" class="internet-tab button text-center">{{ package[0] }}</div>
-      </div>
-    </div>
-  </div>
-  
-  <mat-divider></mat-divider>
-  <div id="compare" class="mx-auto">
-    <div class="button text-center" (click)=addToCompare()>
-      Compare Package
-    </div>
-  </div>
 </div>
 
-
+<!-- Start Compare -->
 <div *ngIf="pricingService.compareActive">
   <div id="compare-container" *ngIf="pricingService.packages?.length > 0">
     <div class="input-container">

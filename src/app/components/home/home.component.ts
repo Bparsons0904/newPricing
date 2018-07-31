@@ -39,6 +39,18 @@ export class HomeComponent implements OnInit {
     });  
   }
 
+  serviceSelect(id) {
+    this.pricingService.setService(id);
+    const array = document.querySelectorAll('.active');
+    for (let i = 0; i < array.length; i++) {
+      const element = array[i];
+      element.classList.remove('active')
+    }
+    let element = document.getElementById(id);
+    if (element) {
+      element.classList.add('active')
+    }
+  }
 
   removePackage(selectedPackage): void {
     const index = this.pricingService.packages.indexOf(selectedPackage);
