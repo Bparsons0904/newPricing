@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, AfterViewChecked } from '@angular/core';
 import { PricingService } from '../../services/pricing.service';
 import { MatSnackBar } from '@angular/material';
 import { CompareComponent } from '../compare/compare.component';
@@ -15,7 +15,7 @@ export class HomeComponent implements OnInit {
   activeServiceName: string;
 
   maxTV: number[];
-  
+
   constructor(
     public pricingService: PricingService,
     public snackBar: MatSnackBar,
@@ -34,7 +34,12 @@ export class HomeComponent implements OnInit {
       for (let i = 1; i <= currentService.maxTV; i++) {
         this.maxTV.push(i);
       }
-    });  
+    });
+    let pricingHeight = document.getElementById('pricing-section').offsetHeight;
+    pricingHeight += 10;
+    const newHeight = pricingHeight.toString() + 'px';
+    const element = document.getElementById('control-selection');
+    element.style.marginTop = newHeight;
   }
 
   selectDiscount(discount): void {
@@ -45,14 +50,14 @@ export class HomeComponent implements OnInit {
     } else {
       element.classList.remove('active');
       const freeAddOn = this.pricingService.currentPackage.tv.freeAddon;
-      if (element.id === "Unlimited" && freeAddOn) {
+      if (element.id === 'Unlimited' && freeAddOn) {
         if (this.pricingService.currentPackage.tv.addOns.indexOf(freeAddOn[0]) !== -1) {
           this.pricingService.currentPackage.tv.addOnsInfo.forEach(element => {
             if (element[0] === freeAddOn[0]) {
-              this.pricingService.removeFreeAddOn(freeAddOn, element)
+              this.pricingService.removeFreeAddOn(freeAddOn, element);
             }
           });
-        } 
+        }
       }
     }
   }
@@ -64,19 +69,19 @@ export class HomeComponent implements OnInit {
         this.selectNumberOfTvs(1);
       }
     } else {
-      this.pricingService.setInternetPackage(selectedPackage)
+      this.pricingService.setInternetPackage(selectedPackage);
     }
     const array = document.querySelectorAll('.packages-tab');
     for (let i = 0; i < array.length; i++) {
       const element = array[i];
-      element.classList.remove('active')
+      element.classList.remove('active');
     }
     const element = document.getElementById(selectedPackage[0]);
-    element.classList.add('active')
+    element.classList.add('active');
   }
 
   selectNumberOfTvs(numberOfTvs): void {
-    if (this.activeServiceName == "DirecTV Now") {
+    if (this.activeServiceName === 'DirecTV Now') {
       if (numberOfTvs === 3) {
         this.pricingService.setNumberOfTvs(2);
       } else {
@@ -88,12 +93,12 @@ export class HomeComponent implements OnInit {
     const array = document.querySelectorAll('.tv-tab');
     for (let i = 0; i < array.length; i++) {
       const element = array[i];
-      element.classList.remove('active')
-      element.classList.remove('far-right-tv')
+      element.classList.remove('active');
+      element.classList.remove('far-right-tv');
     }
     for (let i = 1; i <= numberOfTvs; i++) {
       const element = document.getElementById('tv' + i);
-      element.classList.add('active')
+      element.classList.add('active');
     }
     const element = document.getElementById('tv' + numberOfTvs);
     element.classList.add('far-right-tv');
@@ -105,12 +110,12 @@ export class HomeComponent implements OnInit {
   }
 
   selectInternet(internetPackage): void {
-    let selection = document.getElementById(internetPackage[0]);
+    const selection = document.getElementById(internetPackage[0]);
     if (selection !== null && selection.className === 'internet-tab button text-center active') {
       const array = document.querySelectorAll('.internet-tab');
       for (let i = 0; i < array.length; i++) {
         const element = array[i];
-        element.classList.remove('active')
+        element.classList.remove('active');
       }
       this.pricingService.currentPackage.internet.selected = !this.pricingService.currentPackage.internet.selected;
     } else {
@@ -118,11 +123,11 @@ export class HomeComponent implements OnInit {
       const array = document.querySelectorAll('.internet-tab');
       for (let i = 0; i < array.length; i++) {
         const element = array[i];
-        element.classList.remove('active')
+        element.classList.remove('active');
       }
       if (internetPackage[1] > 0) {
         const element = document.getElementById(internetPackage[0]);
-        element.classList.add('active')
+        element.classList.add('active');
       }
     }
   }
@@ -131,9 +136,9 @@ export class HomeComponent implements OnInit {
     this.pricingService.currentPackage.internet.bundled = !this.pricingService.currentPackage.internet.bundled;
     const element = document.getElementById('bundle');
     if (this.pricingService.currentPackage.internet.bundled) {
-      element.classList.add('active')
+      element.classList.add('active');
     } else {
-      element.classList.remove('active')
+      element.classList.remove('active');
     }
     this.pricingService.bundledService(this.activeServiceType);
   }
@@ -172,12 +177,11 @@ export class HomeComponent implements OnInit {
     const array = document.querySelectorAll('.free-addon-tab');
     for (let i = 0; i < array.length; i++) {
       const element = array[i];
-      element.classList.remove('active')
+      element.classList.remove('active');
     }
     const element = document.getElementById(addOn[1]);
     if (this.pricingService.currentPackage.tv.freeAddon !== addOn) {
       element.classList.add('active');
-      
       if (this.pricingService.currentPackage.tv.addOns.indexOf(addOn[0]) === -1) {
         this.pricingService.currentPackage.tv.addOnsInfo.forEach(activeAddOn => {
           if (activeAddOn[0] === addOn[0]) {
@@ -188,68 +192,62 @@ export class HomeComponent implements OnInit {
       this.pricingService.addFreeAddOn(addOn);
     } else {
       element.classList.remove('active');
-      
-      // this.pricingService.currentPackage.tv.addOnsInfo.forEach(activeAddOn => {
-      //   if (activeAddOn[0] === addOn[0]) {
-      //     this.selectAddOn(activeAddOn);
-      //   }
-      // });
       this.pricingService.removeFreeAddOn(addOn);
     }
   }
 
   clearBundle(): void {
-    if (this.pricingService.currentPackage.tv.tvType === "DirecTV" || this.pricingService.currentPackage.tv.tvType === "DirecTV Spanish") {
+    if (this.pricingService.currentPackage.tv.tvType === 'DirecTV' || this.pricingService.currentPackage.tv.tvType === 'DirecTV Spanish') {
       this.pricingService.setService('dtv-select');
-    } else if (this.pricingService.currentPackage.tv.tvType === "Uverse" || this.pricingService.currentPackage.tv.tvType === "Uverse Spanish") {
+    } else if (this.pricingService.currentPackage.tv.tvType
+      === 'Uverse' || this.pricingService.currentPackage.tv.tvType === 'Uverse Spanish') {
       this.pricingService.setService('uvtv-select');
-    } else if (this.pricingService.currentPackage.tv.tvType === "DirecTV Now") {
+    } else if (this.pricingService.currentPackage.tv.tvType === 'DirecTV Now') {
       this.pricingService.setService('now-select');
     } else {
       this.pricingService.setService('bb-select');
     }
 
     // this.pricingService.resetPackages();
-    let element = document.getElementById('bundle');
+    const element = document.getElementById('bundle');
     if (element) {
-      element.classList.remove('active')
+      element.classList.remove('active');
     }
     let array = document.querySelectorAll('.internet-tab');
     for (let i = 0; i < array.length; i++) {
       const element = array[i];
-      element.classList.remove('active')
+      element.classList.remove('active');
     }
     array = document.querySelectorAll('.tv-tab');
     for (let i = 0; i < array.length; i++) {
       const element = array[i];
-      element.classList.remove('active')
-      element.classList.remove('far-right-tv')
+      element.classList.remove('active');
+      element.classList.remove('far-right-tv');
     }
     array = document.querySelectorAll('.packages-tab');
     for (let i = 0; i < array.length; i++) {
       const element = array[i];
-      element.classList.remove('active')
+      element.classList.remove('active');
     }
     array = document.querySelectorAll('.discounts-tab');
     for (let i = 0; i < array.length; i++) {
       const element = array[i];
-      element.classList.remove('active')
+      element.classList.remove('active');
     }
     array = document.querySelectorAll('.addOns-tab');
     for (let i = 0; i < array.length; i++) {
       const element = array[i];
-      element.classList.remove('active')
+      element.classList.remove('active');
     }
     array = document.querySelectorAll('.free-addon-tab');
     for (let i = 0; i < array.length; i++) {
       const element = array[i];
-      element.classList.remove('active')
+      element.classList.remove('active');
     }
   }
 
   compare(): void {
-    console.log("WTF");
-    
+    console.log('WTF');
   }
 
   addToCompare() {
@@ -259,8 +257,5 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  // testButton() {
-  //   this.pricingService.testService();
-  // }
 
 }

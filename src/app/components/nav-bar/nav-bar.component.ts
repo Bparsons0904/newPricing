@@ -13,6 +13,7 @@ export class NavBarComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+
   }
 
   serviceSelect(id) {
@@ -20,11 +21,11 @@ export class NavBarComponent implements OnInit {
     const array = document.querySelectorAll('.active');
     for (let i = 0; i < array.length; i++) {
       const element = array[i];
-      element.classList.remove('active')
+      element.classList.remove('active');
     }
-    let element = document.getElementById(id);
+    const element = document.getElementById(id);
     if (element) {
-      element.classList.add('active')
+      element.classList.add('active');
     }
   }
 
