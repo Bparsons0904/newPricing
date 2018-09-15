@@ -1,7 +1,6 @@
 import { Component, OnInit, AfterViewInit, AfterViewChecked } from '@angular/core';
 import { PricingService } from '../../services/pricing.service';
 import { MatSnackBar } from '@angular/material';
-import { CompareComponent } from '../compare/compare.component';
 
 @Component({
   selector: 'app-home',

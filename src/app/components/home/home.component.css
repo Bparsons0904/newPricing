@@ -139,11 +139,17 @@
 }
 
 #compare {
-    margin-top: 5px;
+    margin: 5px 0;
     max-width: 350px;
 }
 
+#notice {
+    margin-bottom: 65px;
+}
 
+#notice {
+    color: #B33A3A;
+}
 
 @media (min-width: 768px) { 
     .button {
