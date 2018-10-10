@@ -1,7 +1,3 @@
-/* #nav-bar {
-    margin-top: 175px;
-} */
-
 .tab-group {
     background-color: #00a6d6;
     overflow: hidden;
@@ -26,7 +22,8 @@
 .active {
     background-color: white;
     color: #00a6d6;
-    border-style: none;
+    border: 1.5px #00a6d6 solid;
+    border-bottom: none;
 }
 
 textarea:focus, input:focus {
@@ -40,19 +37,17 @@ textarea:focus, input:focus {
 @media (min-width: 768px) {
     #nav-bar {
         margin-top: 100px;
+        max-width: 780px;
     }
     .tab-group {
         font-size: 1.5em;
+        max-width: 780px;
+        height: 75px;
     }
 
     .nav-tab {
         padding-top: 10px;
         font-size: 1.5em;
-    }
-
-    .tab-group {
-        height: 75px;
-        max-width: 1000px;
     }
 
     .active {
